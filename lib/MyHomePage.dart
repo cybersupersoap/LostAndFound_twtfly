@@ -1,19 +1,67 @@
 import 'package:flutter/material.dart';
 import 'NewWidgets/DropDownMenu.dart';
+import 'LostandFoundMenu.dart';
 
-class MyHomePage extends StatelessWidget{
+class MyHomePage extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() =>_MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
+  final List<Widget> _tabs=<Widget>[
+    LostandFoundMenu(),//主页，就是带搜索和发帖功能的那个
+    Container(
+      alignment: Alignment.center,
+      child: Text('尚在天国的地图界面'),
+    ),
+    Container(
+      alignment: Alignment.center,
+      child: Text('尚在天国的个人主页'),
+    )
+  ];
+
+  final List<BottomNavigationBarItem> _bottomTabs=<BottomNavigationBarItem>[
+    BottomNavigationBarItem(
+      icon: Icon(Icons.cloud),
+      label:'主页',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.map),
+      label: '地图',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.person),
+      label: '我的'
+    ),
+  ];
+  var currentPage;
+  var currentIndex=0;
+  @override
+  void initState() {
+    super.initState();
+    currentPage=_tabs[currentIndex];
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Welcome'
+        backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
+        bottomNavigationBar: BottomNavigationBar(
+          type:BottomNavigationBarType.fixed,
+          currentIndex: currentIndex,
+          items:_bottomTabs,
+          onTap: (index){
+            setState(() {
+              currentIndex = index;
+              currentPage = _tabs[currentIndex];
+            });
+          },
+          fixedColor: Colors.green,
         ),
-      ),
-      body:DropDownMenu(choices:['全部','耳机','水杯','雨伞']),
+        body:currentPage
     );
   }
+
 
 
 }
