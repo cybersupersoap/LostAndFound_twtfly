@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'NewWidgets/DropDownMenu.dart';
 import 'LostandFoundMenu.dart';
+import 'MapPage.dart';
 
 class MyHomePage extends StatefulWidget{
   @override
@@ -10,10 +11,11 @@ class MyHomePage extends StatefulWidget{
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
   final List<Widget> _tabs=<Widget>[
     LostandFoundMenu(),//主页，就是带搜索和发帖功能的那个
-    Container(
-      alignment: Alignment.center,
-      child: Text('尚在天国的地图界面'),
-    ),
+    // Container(
+    //   alignment: Alignment.center,
+    //   child: Text('尚在天国的地图界面'),
+    // ),
+    MapPage(),
     Container(
       alignment: Alignment.center,
       child: Text('尚在天国的个人主页'),
