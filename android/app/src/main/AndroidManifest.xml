@@ -33,11 +33,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       <service android:name="com.amap.api.location.APSService"/>
     </application>
     <!--允许访问网络，必选权限-->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--允许获取粗略位置，若用GPS实现定位小蓝点功能则必选-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--允许获取设备和运营商信息，用于问题排查和网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--允许获取网络状态，用于网络定位，若无gps但仍需实现定位小蓝点功能则此权限必选-->
@@ -57,4 +56,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!--允许读设备等信息，用于问题排查-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--允许访问网络，必选权限-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--允许获取精确位置，精准定位必选-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--允许获取粗略位置，粗略定位必选-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--用于申请调用A-GPS模块,卫星定位加速-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 </manifest>
