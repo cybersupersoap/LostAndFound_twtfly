@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'Config.dart';
 import 'NewWidgets/AmapLocation.dart';
 
+
+
 class MapPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() =>_MapPageState();
@@ -16,15 +18,6 @@ class _MapPageState extends State<MapPage>{
   late Map<String, Object> _locationResult;
   late AMapController _mapController;
   var map;
-  Map<String, Marker> _markers={};
-
-  //新建地图
-  @override
-  void initState() {
-    super.initState();
-    //Config.nowLocationMarker['now']=new Marker(position: LatLng(39.71197112026956, 116.53673196150686));
-
-  }
 
   //地图初始化
   void _onMapCreated(AMapController controller) {
@@ -37,7 +30,7 @@ class _MapPageState extends State<MapPage>{
    void _changeCameraPosition(LatLng position) {
     _mapController?.moveCamera(
       CameraUpdate.newCameraPosition(
-        CameraPosition(target: position, zoom: 30),
+        CameraPosition(target: position, zoom: Config.nowZoom),
       ),
       animated: true,
     );
@@ -48,6 +41,7 @@ class _MapPageState extends State<MapPage>{
     setState(() {
       Config.nowLocationMarker['now']=Marker(position: cameraPosition.target);
       Config.nowLatLng=cameraPosition.target;
+      Config.nowZoom=cameraPosition.zoom;
     });
   }
 
@@ -58,6 +52,7 @@ class _MapPageState extends State<MapPage>{
     AmapLocation amapLocation=new AmapLocation();
     amapLocation.AMapLocationStart();
     var location=amapLocation;
+
     location.locationListener = location.locationPlugin.onLocationChanged().listen((Map<String, Object> result) {
       setState(() {
         print(result);
@@ -69,7 +64,6 @@ class _MapPageState extends State<MapPage>{
         }
       });
     });
-
   }
 
   @override
@@ -78,8 +72,10 @@ class _MapPageState extends State<MapPage>{
       apiKey: Config.amapApiKeys,
       privacyStatement: Config.amapPrivacyStatement,
       onMapCreated: _onMapCreated,
+
       //设置地图初始位置，Config.nowLatLng为空时默认在天安门
-      initialCameraPosition: Config.nowLatLng==null? CameraPosition(target: LatLng(39.909187, 116.397451)):CameraPosition(target: Config.nowLatLng,zoom:30),
+      initialCameraPosition: Config.nowLatLng==null? CameraPosition(target: LatLng(39.909187, 116.397451)):CameraPosition(target: Config.nowLatLng,zoom:Config.nowZoom),
+
       //地图marker
       markers: Set<Marker>.of(Config.nowLocationMarker.values),
       onCameraMoveEnd: _onCameraMoveEnd,
@@ -87,6 +83,8 @@ class _MapPageState extends State<MapPage>{
     return Stack(
       children: <Widget>[
         map,
+
+        //一个在地图中心的点，用来辅助瞄准
         Center(
           child: Icon(
             Icons.circle,
@@ -94,13 +92,23 @@ class _MapPageState extends State<MapPage>{
             size: 5,
           ),
         ),
+
+        //定位按钮
         Positioned(
           top: 20,
           right: 20,
           child: ElevatedButton(
               onPressed: getPosition,
-              child: Text(
-                '定位',
+
+              //利用ValueListenableBuilder监听是否获取权限，获取权限后立刻改变按钮文字
+              child: ValueListenableBuilder(
+                valueListenable: Config.hasLocationPermission,
+                builder: (context,value,child){
+                  return Config.hasLocationPermission.value?
+                  Text('定位'):Text('获取权限');
+                },
+                child: Config.hasLocationPermission.value?
+                  Text('定位'):Text('获取权限'),
               )
           ),
         )

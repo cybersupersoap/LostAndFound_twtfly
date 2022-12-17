@@ -7,6 +7,8 @@ import 'package:amap_flutter_location/amap_location_option.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
+import '../Config.dart';
+
 class AmapLocation{
 
   late StreamSubscription<Map<String, Object>> locationListener;
@@ -16,8 +18,8 @@ class AmapLocation{
 
   void requestPermission() async {
     // 申请权限
-    bool hasLocationPermission = await requestLocationPermission();
-    if (hasLocationPermission) {
+    Config.hasLocationPermission.value = await requestLocationPermission();
+    if (Config.hasLocationPermission.value) {
       if (null != locationPlugin) {
         print("定位权限申请通过,开始定位");
         locationPlugin.startLocation();
