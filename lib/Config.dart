@@ -3,6 +3,13 @@ import 'package:amap_flutter_base/amap_flutter_base.dart';
 import 'package:amap_flutter_location/amap_flutter_location.dart';
 import 'package:amap_flutter_location/amap_location_option.dart';
 class Config{
+  //当前位置
+  static var nowLatLng;
+  //当前位置的地图标记
+  static Map<String, Marker> nowLocationMarker={};
+  //其他地图标记，暂时没用，未来会用上，用于显示失物位置
+  static var markers;
+
   static const AMapApiKey amapApiKeys = AMapApiKey(
       androidKey: 'd59a37e55dc0a42ee59e4302d92c65b9',
       iosKey: 'd59a37e55dc0a42ee59e4302d92c65b9'

@@ -16,15 +16,13 @@ class _MapPageState extends State<MapPage>{
   late Map<String, Object> _locationResult;
   late AMapController _mapController;
   var map;
+  Map<String, Marker> _markers={};
 
   //新建地图
   @override
   void initState() {
-    map = AMapWidget(
-      apiKey: Config.amapApiKeys,
-      privacyStatement: Config.amapPrivacyStatement,
-      onMapCreated: _onMapCreated,
-    );
+    super.initState();
+    //Config.nowLocationMarker['now']=new Marker(position: LatLng(39.71197112026956, 116.53673196150686));
 
   }
 
@@ -35,14 +33,22 @@ class _MapPageState extends State<MapPage>{
     });
   }
 
-  //改变地图中心，目前没有动画
-  void _changeCameraPosition(LatLng position) {
+  //改变镜头位置
+   void _changeCameraPosition(LatLng position) {
     _mapController?.moveCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(target: position, zoom: 30),
       ),
       animated: true,
     );
+  }
+
+  //记录镜头位置并绘制marker
+  void _onCameraMoveEnd(CameraPosition cameraPosition){
+    setState(() {
+      Config.nowLocationMarker['now']=Marker(position: cameraPosition.target);
+      Config.nowLatLng=cameraPosition.target;
+    });
   }
 
   //获得位置并改变镜头位置
@@ -59,10 +65,7 @@ class _MapPageState extends State<MapPage>{
         if (_locationResult != null) {
           double longitude = double.tryParse(_locationResult['longitude'].toString())!;
           double latitude = double.tryParse(_locationResult['latitude'].toString())!;
-
-          print('当前位置：longitude：$longitude,latitude:$latitude');
-
-          _changeCameraPosition(LatLng(latitude!, longitude!));
+          _changeCameraPosition(LatLng(latitude, longitude));
         }
       });
     });
@@ -71,7 +74,16 @@ class _MapPageState extends State<MapPage>{
 
   @override
   Widget build(BuildContext context) {
-
+    map = AMapWidget(
+      apiKey: Config.amapApiKeys,
+      privacyStatement: Config.amapPrivacyStatement,
+      onMapCreated: _onMapCreated,
+      //设置地图初始位置，Config.nowLatLng为空时默认在天安门
+      initialCameraPosition: Config.nowLatLng==null? CameraPosition(target: LatLng(39.909187, 116.397451)):CameraPosition(target: Config.nowLatLng,zoom:30),
+      //地图marker
+      markers: Set<Marker>.of(Config.nowLocationMarker.values),
+      onCameraMoveEnd: _onCameraMoveEnd,
+    );
     return Stack(
       children: <Widget>[
         map,
