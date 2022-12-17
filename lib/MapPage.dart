@@ -87,6 +87,13 @@ class _MapPageState extends State<MapPage>{
     return Stack(
       children: <Widget>[
         map,
+        Center(
+          child: Icon(
+            Icons.circle,
+            color: Colors.blue,
+            size: 5,
+          ),
+        ),
         Positioned(
           top: 20,
           right: 20,
