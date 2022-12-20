@@ -45,7 +45,7 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
 
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: DropDownMenu(choices:const ['全部','雨伞','水杯','钥匙'],width:100),//下拉选单
+          leading: DropDownMenu(choices:const ['全部','雨伞','水杯','钥匙'],width:100,func: 'changeItemKind'),//下拉选单
           leadingWidth: 100,
           title: TextField(
           ),

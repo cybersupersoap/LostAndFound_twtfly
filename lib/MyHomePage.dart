@@ -11,17 +11,16 @@ class MyHomePage extends StatefulWidget{
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
   final List<Widget> _tabs=<Widget>[
     LostandFoundMenu(),//主页，就是带搜索和发帖功能的那个
-    // Container(
-    //   alignment: Alignment.center,
-    //   child: Text('尚在天国的地图界面'),
-    // ),
-    MapPage(),
+
+    MapPage(mode: 0),//不知道有什么用的地图
+
     Container(
       alignment: Alignment.center,
       child: Text('尚在天国的个人主页'),
     )
   ];
 
+  //底部导航栏
   final List<BottomNavigationBarItem> _bottomTabs=<BottomNavigationBarItem>[
     BottomNavigationBarItem(
       icon: Icon(Icons.cloud),
