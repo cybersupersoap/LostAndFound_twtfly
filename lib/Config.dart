@@ -9,28 +9,19 @@ class Config{
   //当前位置
   static var nowLatLng;
   //当前地图缩放
-  static double nowZoom=19.0;
+  static double nowZoom=15.0;
   //当前位置的地图标记
   static Map<String, Marker> nowLocationMarker={};
   //其他地图标记，暂时没用，未来会用上，用于显示失物位置
   static var markers;
   //是否获取定位权限
   static ValueNotifier<bool> hasLocationPermission=ValueNotifier(false);
-  //当前选择物品种类
-  static String nowItem='全部';
-  //当前选择校区
-  static String campus='北洋园';
 
   static const AMapApiKey amapApiKeys = AMapApiKey(
       androidKey: 'd59a37e55dc0a42ee59e4302d92c65b9',
       iosKey: 'd59a37e55dc0a42ee59e4302d92c65b9'
       //iosKey: '您申请的iOS端key'
   );//放置key
-
-  //北洋园的位置和卫津路的位置
-  static const LatLng beiyangyuanLatLng=LatLng(38.997899,117.314542);
-  static const LatLng weijinluLatLng=LatLng(39.11019,117.170393);
-
 
   static const AMapPrivacyStatement amapPrivacyStatement = AMapPrivacyStatement(
       hasContains: true, hasShow: true, hasAgree: true
