@@ -45,11 +45,13 @@ class _MapPageState extends State<MapPage>{
       animated: true,
     );
   }
-
   //记录镜头位置并绘制marker
   void _onCameraMoveEnd(CameraPosition cameraPosition){
     setState(() {
-      Config.nowLocationMarker['now']=Marker(position: cameraPosition.target);
+      Config.nowLocationMarker['now']=Marker(
+          position: cameraPosition.target,
+          icon: BitmapDescriptor.fromIconPath('assets/computer_marker.png'),
+      );
       Config.nowLatLng=cameraPosition.target;
       Config.nowZoom=cameraPosition.zoom;
     });

@@ -91,7 +91,7 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
                     //这是发帖按钮
                     Positioned(
                       bottom: 20,
-                      right: 20,//按钮位置
+                      right: 20,
                       child: ElevatedButton(
                         onPressed: (){print('尚在天国的发帖界面');},
                         child:Text(
