@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'NewWidgets/DropDownMenu.dart';
-
+import 'RouterManager.dart';
 
 class LostandFoundMenu extends StatefulWidget{
   @override
@@ -93,7 +93,7 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
                       bottom: 20,
                       right: 20,
                       child: ElevatedButton(
-                        onPressed: (){print('尚在天国的发帖界面');},
+                        onPressed: (){RouterManager.router.navigateTo(context, '/map?mode=2');},
                         child:Text(
                           '发帖',
                           style: TextStyle(

@@ -17,7 +17,7 @@ class MapPage extends StatefulWidget {
   //当mode为0时，是失物地图模式，该模式下会展示当前所有的失物
   //当mode为1时，是定位模式，该模式下不会展示任何失物，但是允许用户选择位置
   //当mode为2是，是展示位置模式，该模式下会展示一个失物的位置
-  var mode;
+  final String mode;
 
   MapPage({Key? key, required this.mode});
 
@@ -90,61 +90,63 @@ class _MapPageState extends State<MapPage>{
       initialCameraPosition: Config.nowLatLng==null? (Config.campus=='北洋园'? CameraPosition(target: Config.beiyangyuanLatLng, zoom: Config.nowZoom): CameraPosition(target: Config.weijinluLatLng, zoom: Config.nowZoom)):  CameraPosition(target: Config.nowLatLng, zoom: Config.nowZoom),
 
       //地图marker
-      markers: widget.mode==1? Set<Marker>.of(Config.nowLocationMarker.values):Set<Marker>.of([]),
+      markers: widget.mode=='1'? Set<Marker>.of(Config.nowLocationMarker.values):Set<Marker>.of([]),
 
       onCameraMoveEnd: _onCameraMoveEnd,
     );
 
-    return Stack(
-      children: <Widget>[
-        map,
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          map,
 
-        //一个在地图中心的点，用来辅助瞄准
-        widget.mode==1? Center(
-          child: Icon(
-            Icons.circle,
-            color: Colors.blue,
-            size: 5,
-          ),
-        ):
-        Container(),
+          //一个在地图中心的点，用来辅助瞄准
+          widget.mode=='1'? Center(
+            child: Icon(
+              Icons.circle,
+              color: Colors.blue,
+              size: 5,
+            ),
+          ):
+          Container(),
 
-        //改变校区下拉选单,在模式不为展示位置模式时显示
-        widget.mode!=2? Positioned(
-          top:20,
-          left: 20,
-          child: DropDownMenu(
-            choices: [
-              '北洋园',
-              '卫津路',
-            ],
-            func: 'changeCampus',
-            mapPage: this,
-          ),
-        ):Container(),
+          //改变校区下拉选单,在模式不为展示位置模式时显示
+          widget.mode!='2'? Positioned(
+            top:20,
+            left: 20,
+            child: DropDownMenu(
+              choices: [
+                '北洋园',
+                '卫津路',
+              ],
+              func: 'changeCampus',
+              mapPage: this,
+            ),
+          ):Container(),
 
-        //定位按钮,在模式不为展示位置模式时显示
-        widget.mode!=2? Positioned(
-          top: 20,
-          right: 20,
-          child: ElevatedButton(
-              onPressed: getPosition,
+          //定位按钮,在模式不为展示位置模式时显示
+          widget.mode!='2'? Positioned(
+            top: 20,
+            right: 20,
+            child: ElevatedButton(
+                onPressed: getPosition,
 
-              //利用ValueListenableBuilder监听是否获取权限，获取权限后立刻改变按钮文字
-              child: ValueListenableBuilder(
-                valueListenable: Config.hasLocationPermission,
-                builder: (context,value,child){
-                  return Config.hasLocationPermission.value?
-                  Text('定位'):Text('获取权限');
-                },
-                child: Config.hasLocationPermission.value?
-                  Text('定位'):Text('获取权限'),
-              )
-          ),
-        ):Container(),
+                //利用ValueListenableBuilder监听是否获取权限，获取权限后立刻改变按钮文字
+                child: ValueListenableBuilder(
+                  valueListenable: Config.hasLocationPermission,
+                  builder: (context,value,child){
+                    return Config.hasLocationPermission.value?
+                    Text('定位'):Text('获取权限');
+                  },
+                  child: Config.hasLocationPermission.value?
+                    Text('定位'):Text('获取权限'),
+                )
+            ),
+          ):Container(),
 
 
-      ],
+        ],
+      ),
     );
   }
 }
