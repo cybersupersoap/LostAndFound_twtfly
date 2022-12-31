@@ -45,7 +45,7 @@ class MyInformationPage extends StatelessWidget {
               ),
               IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, 'change_name');
+                    Navigator.pushNamed(context, '/change_name');
                   },
                   icon: Icon(Icons.edit)),
             ])),
