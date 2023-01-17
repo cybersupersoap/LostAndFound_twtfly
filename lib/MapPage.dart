@@ -4,6 +4,7 @@ import 'package:amap_flutter_location/amap_flutter_location.dart';
 import 'package:amap_flutter_location/amap_location_option.dart';
 
 import 'package:flutter/material.dart';
+import 'package:lost_and_found/RouterManager.dart';
 import 'Config.dart';
 import 'NewWidgets/AmapLocation.dart';
 import 'NewWidgets/DropDownMenu.dart';
@@ -50,7 +51,6 @@ class _MapPageState extends State<MapPage>{
     setState(() {
       Config.nowLocationMarker['now']=Marker(
           position: cameraPosition.target,
-          icon: BitmapDescriptor.fromIconPath('assets/computer_marker.png'),
       );
       Config.nowLatLng=cameraPosition.target;
       Config.nowZoom=cameraPosition.zoom;
@@ -144,6 +144,15 @@ class _MapPageState extends State<MapPage>{
             ),
           ):Container(),
 
+          widget.mode=='1'? Align(
+            alignment: Alignment(0,0.9),
+            child: ElevatedButton(
+              child: Text('选择该位置'),
+              onPressed: (){
+                RouterManager.router.pop(context);
+              },
+            ),
+          ):Container(),
 
         ],
       ),

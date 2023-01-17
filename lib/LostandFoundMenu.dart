@@ -93,7 +93,7 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
                       bottom: 20,
                       right: 20,
                       child: ElevatedButton(
-                        onPressed: (){RouterManager.router.navigateTo(context, '/map?mode=2');},
+                        onPressed: (){RouterManager.router.navigateTo(context, '/create_new_post');},
                         child:Text(
                           '发帖',
                           style: TextStyle(
