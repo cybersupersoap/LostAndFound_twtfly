@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'NewWidgets/DropDownMenu.dart';
 import 'RouterManager.dart';
 
+import 'TestFile.dart';
+
 class LostandFoundMenu extends StatefulWidget{
   @override
   State<StatefulWidget> createState() =>_LostandFoundMenuState ();
@@ -77,8 +79,17 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
                           controller: _tabController,
                           children: <Widget>[
                             Container(
-                              alignment: Alignment.center,
-                              child: Text('尚在天国的拾物列表'),
+                              child: TestFile.postlist.length==0? Center(child: Text('暂无'),):
+                              ListView.separated(
+                                key: UniqueKey(),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return TestFile.postlist[index];
+                                },
+                                separatorBuilder: (BuildContext context, int index) {
+                                  return Divider(height: 1,color: Colors.grey,);
+                                },
+                                itemCount: TestFile.postlist.length,
+                              ),
                             ),
                             Container(
                               alignment: Alignment.center,
@@ -105,8 +116,26 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
                           minimumSize: MaterialStateProperty.all(Size(80, 80)),//设置按钮大小
                         ),
                       ),
-                    )
+                    ),
 
+                    ///这是刷新按钮
+                    Positioned(
+                      bottom: 110,
+                      right: 20,
+                      child: ElevatedButton(
+                        onPressed: (){setState(() {});},
+                        child:Text(
+                          '刷新',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(CircleBorder()),
+                          minimumSize: MaterialStateProperty.all(Size(80, 80)),//设置按钮大小
+                        ),
+                      ),
+                    )
                   ]
               ),
             ),

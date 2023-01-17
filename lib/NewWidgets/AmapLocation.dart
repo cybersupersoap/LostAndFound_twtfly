@@ -44,7 +44,6 @@ class AmapLocation{
       locationOption.onceLocation = true;
 
       ///是否需要返回逆地理信息
-      locationOption.needAddress = true;//
       locationOption.desiredLocationAccuracyAuthorizationMode =
           AMapLocationAccuracyAuthorizationMode.FullAndReduceAccuracy;
 

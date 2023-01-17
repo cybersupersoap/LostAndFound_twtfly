@@ -21,6 +21,13 @@ class Config{
   //当前选择校区
   static String campus='北洋园';
 
+  static Map<String, AssetImage> imageMap= {
+    '钥匙':AssetImage('assets/key.png'),
+    '卡片':AssetImage('assets/card.png'),
+    '手机':AssetImage('assets/phone.png'),
+    '电脑':AssetImage('assets/computer.png')
+  };
+
   static const AMapApiKey amapApiKeys = AMapApiKey(
       androidKey: 'd59a37e55dc0a42ee59e4302d92c65b9',
       iosKey: 'd59a37e55dc0a42ee59e4302d92c65b9'
@@ -45,6 +52,7 @@ class Config{
   static setAmapLocationApiKey(){
     AMapFlutterLocation.setApiKey("d59a37e55dc0a42ee59e4302d92c65b9", "d59a37e55dc0a42ee59e4302d92c65b9");
   }
+
 
 
 }

@@ -33,6 +33,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       
        <service android:name="com.amap.api.location.APSService"/>
     </application>
     <!--允许访问网络，必选权限-->

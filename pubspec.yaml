@@ -52,8 +52,6 @@ dev_dependencies:
   flutter_easyloading: ^3.0.5
   amap_flutter_location: ^3.0.0
   fluro: ^2.0.3
-  wechat_assets_picker: ^8.3.1
-  photo_manager: ^2.5.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

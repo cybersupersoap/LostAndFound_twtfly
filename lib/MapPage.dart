@@ -73,6 +73,7 @@ class _MapPageState extends State<MapPage>{
         if (_locationResult != null) {
           double longitude = double.tryParse(_locationResult['longitude'].toString())!;
           double latitude = double.tryParse(_locationResult['latitude'].toString())!;
+          print(_locationResult);
           changeCameraPosition(LatLng(latitude, longitude));
         }
       });
@@ -81,6 +82,7 @@ class _MapPageState extends State<MapPage>{
 
   @override
   Widget build(BuildContext context) {
+    
     map = AMapWidget(
       apiKey: Config.amapApiKeys,
       privacyStatement: Config.amapPrivacyStatement,

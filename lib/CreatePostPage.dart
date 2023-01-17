@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'RouterManager.dart';
 import 'NewWidgets/NewTextField.dart';
 import 'Models/InputRecorder.dart';
+import 'Models/Post.dart';
 
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
-import 'package:photo_manager/photo_manager.dart';
+import 'TestFile.dart';
 
 class CreatePostPage extends StatefulWidget {  @override
   State<StatefulWidget> createState() {
@@ -227,14 +227,23 @@ class _CreatePostPageState extends State<CreatePostPage> {
                     padding: EdgeInsetsDirectional.only(end:20),
                     child: NewTextField(maxLine: 7, minLine: 7, valueRecorder: postContentRecorder)
                 ),
-                Positioned(
-                  child: IconButton(
-                    icon: Icon(Icons.image),
-                    onPressed: ()async{final List<AssetEntity>? result = await AssetPicker.pickAssets(context);},
-                  ),
-                )
               ],
             ),
+
+            ///提交按钮
+            ElevatedButton(
+                onPressed: (){
+                  Post post=Post.fromTest(
+                    itemKind: chosenOne,
+                    headline: postDescription,
+                    content: postContentRecorder.value,
+                    posttime: DateTime.now(),
+                    LFtype: isLost==true? '失物':'拾物',
+                  );
+                  TestFile.add(post);
+                  RouterManager.router.pop(context);
+                },
+                child: Text('提交'))
           ],
         ),
       )
