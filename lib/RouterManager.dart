@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lost_and_found/MapPage.dart';
 
 import 'MyHomePage.dart';
+import 'myinformation/pages/MyMessage.dart';
 import 'myinformation/pages/NickName.dart';
 
 class RouterManager {
@@ -26,10 +27,16 @@ class RouterManager {
       handlerFunc: (BuildContext? ct, Map<String, List<String>> params) {
     return NickNamePage();
   });
+  static String mymessagePage = '/my_message';
+  static var mymessagePageHandler = Handler(
+      handlerFunc: (BuildContext? ct, Map<String, List<String>> params) {
+    return MyMessagePage();
+  });
 
   static void DefineRoutes() {
     router.define(homePagePath, handler: homePageHandler);
     router.define(mapPagePath, handler: mapPageHandler);
     router.define(nicknamePage, handler: nicknamePageHandler);
+    router.define(mymessagePage, handler: mymessagePageHandler);
   }
 }

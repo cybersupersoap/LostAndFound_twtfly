@@ -20,10 +20,7 @@ class MyInformationPage extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(30, 40, 30, 30),
                 height: Height / 5,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/background.png'),
-                    fit: BoxFit.cover,
-                  ),
+                  color: Colors.white70,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(children: [
@@ -34,7 +31,7 @@ class MyInformationPage extends StatelessWidget {
                     margin: EdgeInsets.all(20),
                     child: Image(
                       image: NetworkImage(
-                          'https://upload.pig66.com/uploadfile/2017/0511/20170511075802322.jpg'),
+                          'https://img9.51tietu.net/pic/20190918/p0iwg2kzx13p0iwg2kzx13.jpg'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -69,9 +66,7 @@ class MyInformationPage extends StatelessWidget {
                     margin: EdgeInsets.fromLTRB(30, 30, 15, 30),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            image: AssetImage('assets/background.png'),
-                            fit: BoxFit.cover)),
+                        color: Colors.white70),
                     child: Column(
                       children: [
                         Container(
@@ -84,7 +79,7 @@ class MyInformationPage extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 30,
-                              color: Colors.white,
+                              color: Colors.black,
                               fontWeight: FontWeight.w500),
                         )
                       ],
@@ -103,10 +98,7 @@ class MyInformationPage extends StatelessWidget {
                       margin: EdgeInsets.fromLTRB(15, 30, 30, 30),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: AssetImage('assets/background.png'),
-                            fit: BoxFit.cover,
-                          )),
+                          color: Colors.white70),
                       child: Column(
                         children: [
                           Container(
@@ -122,7 +114,7 @@ class MyInformationPage extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 30,
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w500),
                           )
                         ],
@@ -140,10 +132,7 @@ class MyInformationPage extends StatelessWidget {
                     margin: EdgeInsets.all(30),
                     height: Height / 5,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/background.png'),
-                        fit: BoxFit.cover,
-                      ),
+                      color: Colors.white70,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
@@ -154,7 +143,7 @@ class MyInformationPage extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 30,
-                              color: Colors.white,
+                              color: Colors.black,
                               fontWeight: FontWeight.w500),
                         ),
                       ],
