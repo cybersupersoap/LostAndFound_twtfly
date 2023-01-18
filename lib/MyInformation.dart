@@ -126,7 +126,7 @@ class MyInformationPage extends StatelessWidget {
             ///我的成就
             InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, 'my_achievement');
+                  Navigator.pushNamed(context, 'my_success');
                 },
                 child: Container(
                     margin: EdgeInsets.all(30),
