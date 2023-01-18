@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:lost_and_found/MapPage.dart';
 
 import 'MyHomePage.dart';
+import 'myinformation/pages/MyMessage.dart';
 import 'myinformation/pages/NickName.dart';
 import 'CreatePostPage.dart';
 
 class RouterManager {
   static final router = FluroRouter();
-  //主页
+  ///主页
   static String homePagePath = '/home';
   static var homePageHandler = Handler(
       handlerFunc: (BuildContext? ct, Map<String, List<String>> params) {
@@ -28,6 +29,12 @@ class RouterManager {
     return NickNamePage();
   });
 
+  static String mymessagePage = '/my_message';
+  static var mymessagePageHandler = Handler(
+      handlerFunc: (BuildContext? ct, Map<String, List<String>> params) {
+    return MyMessagePage();
+  });
+
   static String createPostPagePath='/create_new_post';
   static var createPostPageHandler = Handler(
       handlerFunc: (BuildContext? ct, Map<String, List<String>> params){
@@ -39,5 +46,6 @@ class RouterManager {
     router.define(mapPagePath, handler: mapPageHandler);
     router.define(nicknamePage, handler: nicknamePageHandler);
     router.define(createPostPagePath, handler: createPostPageHandler);
+    router.define(mymessagePage, handler: mymessagePageHandler);
   }
 }

@@ -5,7 +5,7 @@ import '../Config.dart';
 class PostContainer extends StatelessWidget{
   final double height;
   final Post post;
-  PostContainer({Key? key, this.height=90,required this.post}) : super(key:key);
+  PostContainer({Key? key, this.height=70,required this.post}) : super(key:key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -15,7 +15,7 @@ class PostContainer extends StatelessWidget{
             height: height-20,
             width: height-20,
             decoration: BoxDecoration(
-              shape: BoxShape.circle,
+              borderRadius: BorderRadius.circular(5),
               image: DecorationImage(
                 image: Config.imageMap[post.itemKind]!,
                 fit: BoxFit.fill,
