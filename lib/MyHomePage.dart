@@ -13,7 +13,7 @@ class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   final List<Widget> _tabs = <Widget>[
     LostandFoundMenu(), //主页，就是带搜索和发帖功能的那个
-    MapPage(mode: '0'), //不知道有什么用的地图
+    MapPage(mode: '1'), //不知道有什么用的地图
     MyInformationPage(), //我的个人主页
     Container(
       alignment: Alignment.center,

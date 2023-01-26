@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lost_and_found/RouterManager.dart';
 import '../Models/Post.dart';
 import '../Config.dart';
 
@@ -30,7 +31,7 @@ class PostContainer extends StatelessWidget{
         ),
       ),
       onTap: (){
-
+        RouterManager.router.navigateTo(context, '/post?postid=${post.postID}');
       },
     );
   }

@@ -1,12 +1,14 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_and_found/MapPage.dart';
+import 'package:lost_and_found/TestFile.dart';
 
 import 'MyHomePage.dart';
 import 'myinformation/pages/MyMessage.dart';
 import 'myinformation/pages/MySuccess.dart';
 import 'myinformation/pages/NickName.dart';
 import 'CreatePostPage.dart';
+import 'PostPage.dart';
 
 class RouterManager {
   static final router = FluroRouter();
@@ -48,6 +50,14 @@ class RouterManager {
     return MySuccessPage();
   });
 
+  static String postPage='/post';
+  static var postPageHandler = Handler(
+    handlerFunc: (BuildContext? ct, Map<String, List<String>> params){
+      var postid= params['postid']?.first;
+      return PostPage(post: TestFile.search(postid!).first.post);
+    }
+  );
+
 
   static void DefineRoutes() {
     router.define(homePagePath, handler: homePageHandler);
@@ -56,5 +66,6 @@ class RouterManager {
     router.define(createPostPagePath, handler: createPostPageHandler);
     router.define(mymessagePage, handler: mymessagePageHandler);
     router.define(mysuccessPage, handler: mysuccessPageHandler);
+    router.define(postPage, handler: postPageHandler);
   }
 }

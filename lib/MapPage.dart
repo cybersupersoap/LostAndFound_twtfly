@@ -8,6 +8,7 @@ import 'package:lost_and_found/RouterManager.dart';
 import 'Config.dart';
 import 'NewWidgets/AmapLocation.dart';
 import 'NewWidgets/DropDownMenu.dart';
+import 'Regeo.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 
@@ -53,6 +54,8 @@ class _MapPageState extends State<MapPage>{
           position: cameraPosition.target,
       );
       Config.nowLatLng=cameraPosition.target;
+      Config.nowLatitude=cameraPosition.target.latitude;
+      Config.nowLongitude=cameraPosition.target.longitude;
       Config.nowZoom=cameraPosition.zoom;
     });
     print(Config.nowLatLng);
@@ -155,6 +158,24 @@ class _MapPageState extends State<MapPage>{
               },
             ),
           ):Container(),
+          
+          Positioned(
+              bottom: 20,
+              left: 20,
+              child: ElevatedButton(
+                child: Text('regeotest'),
+                onPressed: (){
+                  Regeo.regeo(Config.nowLatitude, Config.nowLongitude);
+                  setState(() {
+                  });
+                },
+              )
+          ),
+          Positioned(
+              top:50,
+              right:50,
+              child: Config.res==null? Container():Container(height:600,width:400,child: Text(Config.res)),
+          )
 
         ],
       ),

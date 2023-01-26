@@ -8,8 +8,14 @@ import 'package:flutter/material.dart';
 class Config{
   //当前位置
   static var nowLatLng;
+
+  static var nowLatitude;
+
+  static var nowLongitude;
   //当前地图缩放
   static double nowZoom=19.0;
+
+  static var res;
   //当前位置的地图标记
   static Map<String, Marker> nowLocationMarker={};
   //其他地图标记，暂时没用，未来会用上，用于显示失物位置

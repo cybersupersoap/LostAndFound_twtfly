@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lost_and_found/NewWidgets/PostContainer.dart';
 import 'NewWidgets/DropDownMenu.dart';
 import 'RouterManager.dart';
 
@@ -43,6 +44,9 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
+    final lostPosts=TestFile.search('失物');
+    final foundPosts=TestFile.search('拾物');
+
     return Scaffold(
 
         appBar: AppBar(
@@ -79,22 +83,31 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
                           controller: _tabController,
                           children: <Widget>[
                             Container(
-                              child: TestFile.postlist.length==0? Center(child: Text('暂无'),):
+                              child: foundPosts.isEmpty? Center(child: Text('暂无'),):
                               ListView.separated(
                                 key: UniqueKey(),
                                 itemBuilder: (BuildContext context, int index) {
-                                  return TestFile.postlist[index];
+                                  return foundPosts[index];
                                 },
                                 separatorBuilder: (BuildContext context, int index) {
                                   return Divider(height: 1,color: Colors.grey,);
                                 },
-                                itemCount: TestFile.postlist.length,
+                                itemCount: foundPosts.length,
                               ),
                             ),
                             Container(
-                              alignment: Alignment.center,
-                              child: Text('尚在天国的失物列表'),
-                            )
+                              child: lostPosts.isEmpty? Center(child: Text('暂无'),):
+                              ListView.separated(
+                                key: UniqueKey(),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return lostPosts[index];
+                                },
+                                separatorBuilder: (BuildContext context, int index) {
+                                  return Divider(height: 1,color: Colors.grey,);
+                                },
+                                itemCount: lostPosts.length,
+                              ),
+                            ),
                           ],
                         )
                     ),

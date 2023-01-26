@@ -7,6 +7,9 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         android:hardwareAccelerated="true"
+       <meta-data
+           android:name="com.amap.api.v2.apikey"
+           android:value="d59a37e55dc0a42ee59e4302d92c65b9"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
