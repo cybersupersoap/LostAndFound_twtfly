@@ -54,7 +54,7 @@ class RouterManager {
   static var postPageHandler = Handler(
     handlerFunc: (BuildContext? ct, Map<String, List<String>> params){
       var postid= params['postid']?.first;
-      return PostPage(post: TestFile.search(postid!).first.post);
+      return PostPage(post: TestFile.search([postid!]).first.post);
     }
   );
 

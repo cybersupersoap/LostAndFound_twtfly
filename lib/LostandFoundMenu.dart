@@ -4,6 +4,7 @@ import 'NewWidgets/DropDownMenu.dart';
 import 'RouterManager.dart';
 
 import 'TestFile.dart';
+import 'package:dio/dio.dart';
 
 class LostandFoundMenu extends StatefulWidget{
   @override
@@ -44,8 +45,8 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    final lostPosts=TestFile.search('失物');
-    final foundPosts=TestFile.search('拾物');
+    final lostPosts=TestFile.search(['失物']);
+    final foundPosts=TestFile.search(['拾物']);
 
     return Scaffold(
 
@@ -136,7 +137,12 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
                       bottom: 110,
                       right: 20,
                       child: ElevatedButton(
-                        onPressed: (){setState(() {});},
+                        onPressed: (){
+                          // FormData data = FormData.fromMap({'name':'soap'});
+                          // var res= await Dio().post('http://101.34.160.18:8888/testservice');
+                          // print(res.data);
+                          setState(() {});
+                          },
                         child:Text(
                           '刷新',
                           style: TextStyle(

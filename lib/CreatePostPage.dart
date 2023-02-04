@@ -4,11 +4,17 @@ import 'RouterManager.dart';
 import 'NewWidgets/NewTextField.dart';
 import 'Models/InputRecorder.dart';
 import 'Models/Post.dart';
+import 'Models/MapMarker.dart';
+import 'Config.dart';
 
 import 'TestFile.dart';
 
-class CreatePostPage extends StatefulWidget {  @override
+class CreatePostPage extends StatefulWidget {
+  @override
   State<StatefulWidget> createState() {
+    ///初始化一下位置选择状态
+    Config.hasChoosePosition.value=false;
+
     return _CreatePostPageState();
   }
 }
@@ -17,7 +23,6 @@ class _CreatePostPageState extends State<CreatePostPage> {
   var isLost=true;
   var postDescription='';
   var chosenOne='卡片';
-  var isLocated=false;
   var postContentRecorder= InputRecorder();
 
   @override
@@ -202,13 +207,15 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 ElevatedButton(
                   onPressed: (){
                       RouterManager.router.navigateTo(context, '/map?mode=1');
-                      setState(() {
-                        isLocated=true;
-                      });
                     },
                   child: Text('开启地图'),
                 ),
-                Text(isLocated==true? '已选择位置':'未选择位置'),
+                ValueListenableBuilder(
+                  valueListenable: Config.hasChoosePosition,
+                  builder: (context,value,child){
+                    return Config.hasChoosePosition.value? Text('已选中位置'):Text('未选中位置');
+                   },
+                )
               ],
             ),
 
@@ -239,6 +246,8 @@ class _CreatePostPageState extends State<CreatePostPage> {
                     content: postContentRecorder.value,
                     posttime: DateTime.now(),
                     LFtype: isLost==true? '失物':'拾物',
+                    latitude: Config.hasChoosePosition.value? Config.nowLatitude:null,
+                    longtitude: Config.hasChoosePosition.value? Config.nowLongitude:null
                   );
                   TestFile.add(post);
                   RouterManager.router.pop(context);

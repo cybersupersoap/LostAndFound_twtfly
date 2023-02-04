@@ -6,26 +6,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Config{
-  //当前位置
+  static bool debugMode=true;
+  ///当前位置
   static var nowLatLng;
-
   static var nowLatitude;
-
   static var nowLongitude;
-  //当前地图缩放
+  ///当前地图缩放
   static double nowZoom=19.0;
-
   static var res;
-  //当前位置的地图标记
+  ///当前位置的地图标记
   static Map<String, Marker> nowLocationMarker={};
-  //其他地图标记，暂时没用，未来会用上，用于显示失物位置
+  ///其他地图标记，暂时没用，未来会用上，用于显示失物位置
   static var markers;
-  //是否获取定位权限
+  ///是否获取定位权限
   static ValueNotifier<bool> hasLocationPermission=ValueNotifier(false);
-  //当前选择物品种类
+  ///当前选择物品种类
   static String nowItem='全部';
-  //当前选择校区
+  ///当前选择校区
   static String campus='北洋园';
+  ///地图mode0中是否选中位置的监听器
+  static ValueNotifier<bool> hasChoosePosition=ValueNotifier(false);
 
   static Map<String, AssetImage> imageMap= {
     '钥匙':AssetImage('assets/key.png'),
@@ -33,6 +33,15 @@ class Config{
     '手机':AssetImage('assets/phone.png'),
     '电脑':AssetImage('assets/computer.png')
   };
+
+  static Map<String, String> imageMarkerMap= {
+    '钥匙':'assets/key_marker.png',
+    '卡片':'assets/card_marker.png',
+    '手机':'assets/phone_marker.png',
+    '电脑':'assets/computer_marker.png'
+  };
+
+
 
   static const AMapApiKey amapApiKeys = AMapApiKey(
       androidKey: 'd59a37e55dc0a42ee59e4302d92c65b9',
