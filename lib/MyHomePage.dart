@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage>
     )
   ];
 
-  //底部导航栏
+  ///底部导航栏
   final List<BottomNavigationBarItem> _bottomTabs = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
       icon: Icon(Icons.cloud),

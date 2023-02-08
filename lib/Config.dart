@@ -16,8 +16,6 @@ class Config{
   static var res;
   ///当前位置的地图标记
   static Map<String, Marker> nowLocationMarker={};
-  ///其他地图标记，暂时没用，未来会用上，用于显示失物位置
-  static var markers;
   ///是否获取定位权限
   static ValueNotifier<bool> hasLocationPermission=ValueNotifier(false);
   ///当前选择物品种类
@@ -49,7 +47,7 @@ class Config{
       //iosKey: '您申请的iOS端key'
   );//放置key
 
-  //北洋园的位置和卫津路的位置
+  ///北洋园的位置和卫津路的位置
   static const LatLng beiyangyuanLatLng=LatLng(38.997899,117.314542);
   static const LatLng weijinluLatLng=LatLng(39.11019,117.170393);
 

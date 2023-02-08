@@ -92,7 +92,6 @@ class _MapPageState extends State<MapPage>{
 
   @override
   Widget build(BuildContext context) {
-    print(TestFile.markerlist);
 
     ///futurebuilder使用参考于https://qa.1r1g.com/sf/ask/3938206961/
     map = FutureBuilder(
@@ -116,7 +115,7 @@ class _MapPageState extends State<MapPage>{
         children: <Widget>[
           map,
 
-          //一个在地图中心的点，用来辅助瞄准
+          ///一个在地图中心的点，用来辅助瞄准
           widget.mode=='1'? Center(
             child: Icon(
               Icons.circle,
@@ -126,7 +125,7 @@ class _MapPageState extends State<MapPage>{
           ):
           Container(),
 
-          //改变校区下拉选单,在模式不为展示位置模式时显示
+          ///改变校区下拉选单,在模式不为展示位置模式时显示
           widget.mode!='2'? Positioned(
             top:20,
             left: 20,
@@ -140,14 +139,14 @@ class _MapPageState extends State<MapPage>{
             ),
           ):Container(),
 
-          //定位按钮,在模式不为展示位置模式时显示
+          ///定位按钮,在模式不为展示位置模式时显示
           widget.mode!='2'? Positioned(
             top: 20,
             right: 20,
             child: ElevatedButton(
                 onPressed: getPosition,
 
-                //利用ValueListenableBuilder监听是否获取权限，获取权限后立刻改变按钮文字
+                ///利用ValueListenableBuilder监听是否获取权限，获取权限后立刻改变按钮文字
                 child: ValueListenableBuilder(
                   valueListenable: Config.hasLocationPermission,
                   builder: (context,value,child){
@@ -183,11 +182,11 @@ class _MapPageState extends State<MapPage>{
           //       },
           //     )
           // ),
-          Config.debugMode? Positioned(
-              top:80,
-              right:50,
-              child: locRes==null? Container():Container(height:1000,width:300,child: Text(locRes.toString())),
-          ):Container(),
+          // Config.debugMode? Positioned(
+          //     top:80,
+          //     right:50,
+          //     child: locRes==null? Container():Container(height:1000,width:300,child: Text(locRes.toString())),
+          // ):Container(),
 
         ],
       ),

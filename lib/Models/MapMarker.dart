@@ -29,7 +29,7 @@ class MapMarkers{
           onTap: (_){
             BuildContext? context=navigatorKey.currentState?.overlay?.context;
             RouterManager.router.navigateTo(context!, '/post?postid=${amarker.postID}');
-          }
+          },
       );
       res.add(marker);
     }

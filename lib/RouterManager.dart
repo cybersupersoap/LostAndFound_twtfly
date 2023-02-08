@@ -12,6 +12,7 @@ import 'PostPage.dart';
 
 class RouterManager {
   static final router = FluroRouter();
+
   ///主页
   static String homePagePath = '/home';
   static var homePageHandler = Handler(
@@ -19,6 +20,11 @@ class RouterManager {
     return MyHomePage();
   });
 
+  ///地图界面
+  ///地图有三种模式
+  ///当mode为0时，是失物地图模式，该模式下会展示当前所有的失物
+  ///当mode为1时，是定位模式，该模式下不会展示任何失物，但是允许用户选择位置
+  ///当mode为2是，是展示位置模式，该模式下会展示一个失物的位置
   static String mapPagePath = '/map';
   static var mapPageHandler = Handler(
       handlerFunc: (BuildContext? ct, Map<String, List<String>> params) {
@@ -38,6 +44,7 @@ class RouterManager {
     return MyMessagePage();
   });
 
+  ///发布新帖界面
   static String createPostPagePath='/create_new_post';
   static var createPostPageHandler = Handler(
       handlerFunc: (BuildContext? ct, Map<String, List<String>> params){
@@ -50,6 +57,7 @@ class RouterManager {
     return MySuccessPage();
   });
 
+  ///帖子详情
   static String postPage='/post';
   static var postPageHandler = Handler(
     handlerFunc: (BuildContext? ct, Map<String, List<String>> params){

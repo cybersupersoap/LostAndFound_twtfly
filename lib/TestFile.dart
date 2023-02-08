@@ -7,13 +7,13 @@ import 'package:lost_and_found/Models/MapMarker.dart';
 
 class TestFile{
   static List<PostContainer> postlist=[];
-  static List<Marker> markerlist=[];
+  //static List<Marker> markerlist=[];
 
   ///临时数据添加，后端怎么还没搞好服务器
   static void add(Post post) async {
     post.postID=postlist.length;
     postlist.add(PostContainer(post: post));
-    if(post.latitude!=null){
+    if(post.latitude!=null&&post.LFtype=='拾物'){
       MapMarkers.add(post.latitude!, post.longtitude!, post.itemKind! ,post.postID.toString()!);
     }
   }

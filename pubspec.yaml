@@ -57,6 +57,9 @@ dev_dependencies:
   foundation_flutter: ^0.2.0
   amap_core_fluttify: ^0.17.0
   dio: ^4.0.6
+  wechat_assets_picker: ^8.3.2
+  wechat_camera_picker: ^3.7.0
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
