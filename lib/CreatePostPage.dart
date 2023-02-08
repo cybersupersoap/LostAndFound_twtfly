@@ -23,6 +23,7 @@ class CreatePostPage extends StatefulWidget {
 
 class _CreatePostPageState extends State<CreatePostPage> {
   var isLost=true;
+  var isBeiyangyuan=true;
   var postDescription='';
   var chosenOne='卡片';
   var postContentRecorder= InputRecorder();
@@ -61,71 +62,154 @@ class _CreatePostPageState extends State<CreatePostPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(padding: EdgeInsetsDirectional.only(top:10)),
+                Container(
+                  padding: EdgeInsetsDirectional.only(end:10),
+                  width: MediaQuery.of(context).size.width,
+                  child: Stack(
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            '请选择发帖类型',
+                            style: TextStyle(
+                              color: Colors.blueGrey,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Padding(padding: EdgeInsetsDirectional.only(top: 10)),
+                          ///选择失物拾物
+                          Row(
+                            children: <Widget>[
+                              GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    isLost=true;
+                                  });
+                                },
+                                child: Container(
+                                  width: 80,
+                                  height: 40,
+                                  child: Center(
+                                    child: Text(
+                                      '失物',
+                                      style: TextStyle(
+                                          color: isLost==true? Colors.white : Colors.blue,
+                                          fontSize: 20
+                                      ),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: isLost==true? Colors.blue : Colors.white,
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                ),
+                              ),
+                              Padding(padding: EdgeInsetsDirectional.only(start: 10)),
+                              GestureDetector(
+                                onTap: (){
+                                  setState(() {
+                                    isLost=false;
+                                  });
+                                },
+                                child: Container(
+                                  width: 80,
+                                  height: 40,
+                                  child: Center(
+                                    child: Text(
+                                      '拾物',
+                                      style: TextStyle(
+                                          color: isLost==true? Colors.blue : Colors.white,
+                                          fontSize: 20
+                                      ),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: isLost==true? Colors.white : Colors.blue,
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                        right: 5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              '请选择校区',
+                              style: TextStyle(
+                                color: Colors.blueGrey,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Padding(padding: EdgeInsetsDirectional.only(top: 10)),
 
-                Text(
-                  '请选择发帖类型',
-                  style: TextStyle(
-                    color: Colors.blueGrey,
-                    fontSize: 20,
+                            ///选择校区
+                            Row(
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      isBeiyangyuan=true;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 80,
+                                    height: 40,
+                                    child: Center(
+                                      child: Text(
+                                        '北洋园',
+                                        style: TextStyle(
+                                            color: isBeiyangyuan==true? Colors.white : Colors.blue,
+                                            fontSize: 20
+                                        ),
+                                      ),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: isBeiyangyuan==true? Colors.blue : Colors.white,
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                  ),
+                                ),
+                                Padding(padding: EdgeInsetsDirectional.only(start: 10)),
+                                GestureDetector(
+                                  onTap: (){
+                                    setState(() {
+                                      isBeiyangyuan=false;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 80,
+                                    height: 40,
+                                    child: Center(
+                                      child: Text(
+                                        '卫津路',
+                                        style: TextStyle(
+                                            color: isBeiyangyuan==true? Colors.blue : Colors.white,
+                                            fontSize: 20
+                                        ),
+                                      ),
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: isBeiyangyuan==true? Colors.white : Colors.blue,
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
 
-                Padding(padding: EdgeInsetsDirectional.only(top: 10)),
-
-                ///选择失物拾物
-                Row(
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: (){
-                        setState(() {
-                          isLost=true;
-                        });
-                      },
-                      child: Container(
-                        width: 80,
-                        height: 40,
-                        child: Center(
-                          child: Text(
-                            '失物',
-                            style: TextStyle(
-                              color: isLost==true? Colors.white : Colors.blue,
-                              fontSize: 20
-                            ),
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          color: isLost==true? Colors.blue : Colors.white,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                      ),
-                    ),
-                    Padding(padding: EdgeInsetsDirectional.only(start: 10)),
-                    GestureDetector(
-                      onTap: (){
-                        setState(() {
-                          isLost=false;
-                        });
-                      },
-                      child: Container(
-                        width: 80,
-                        height: 40,
-                        child: Center(
-                          child: Text(
-                            '拾物',
-                            style: TextStyle(
-                                color: isLost==true? Colors.blue : Colors.white,
-                                fontSize: 20
-                            ),
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          color: isLost==true? Colors.white : Colors.blue,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                Padding(padding: EdgeInsetsDirectional.only(top:10)),
 
                 Text(
                   '请简单描述物品',
@@ -267,6 +351,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
                                 context,
                                 pickerConfig: AssetPickerConfig(
                                   maxAssets: 4-photos.length,
+                                  requestType: RequestType.image,
                                 )
                             );
                             if(result!=null)photos.addAll(result);
@@ -329,11 +414,13 @@ class _CreatePostPageState extends State<CreatePostPage> {
                         Post post=Post.fromTest(
                           itemKind: chosenOne,
                           headline: postDescription,
-                          content: postContentRecorder.value,
-                          posttime: DateTime.now(),
+                          content: postContentRecorder.value!=null? postContentRecorder.value:'null',
+                          datatime: DateTime.now().toString(),
                           LFtype: isLost==true? '失物':'拾物',
-                          latitude: Config.hasChoosePosition.value? Config.nowLatitude:null,
-                          longtitude: Config.hasChoosePosition.value? Config.nowLongitude:null
+                          latitude: Config.hasChoosePosition.value? Config.nowLatitude:0.0,
+                          longtitude: Config.hasChoosePosition.value? Config.nowLongitude:0.0,
+                          WorJ: isBeiyangyuan==true? '北洋园':'卫津路',
+                          photos: photos,
                         );
                         TestFile.add(post);
                         RouterManager.router.pop(context);

@@ -29,7 +29,10 @@ class RouterManager {
   static var mapPageHandler = Handler(
       handlerFunc: (BuildContext? ct, Map<String, List<String>> params) {
     var mode = params['mode']?.first;
-    return MapPage(mode: mode!);
+    if(params['latitude']!=null){
+      return MapPage(mode: mode!,initLatitude: double.parse(params['latitude']!.first), initLongitude: double.parse(params['longitude']!.first));
+    }
+    else return MapPage(mode: mode!);
   });
 
   static String nicknamePage = '/change_name';

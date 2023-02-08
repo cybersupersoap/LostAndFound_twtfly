@@ -1,36 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class Post{
     String? headline;
     String? content;
     double? latitude;
     double? longtitude;
-    DateTime? posttime;
-    DateTime? LFtime;
+    String? datatime;
     String? LFtype;
     num? postID;
     String? itemKind;
-    String? campus;
+    String? WorJ;
+    List<AssetEntity>? photos;
     Post.fromJson(Map<String,dynamic> json)
         : this.headline=json['headline'],
           this.content=json['content'],
           this.latitude=json['latitude'],
           this.longtitude=json['longtitude'],
-          this.posttime=json['posttime'],
-          this.LFtime=json['LFtime'],
+          this.datatime=json['datatime'],
           this.LFtype=json['LFtype'],
           this.postID=json['postID'],
           this.itemKind=json['itemKind'],
-          this.campus=json['campus'];
-    Post.fromTest({headline,content,latitude,longtitude,posttime,LFtime,LFtype,postID,itemKind,campus})
+          this.WorJ=json['WorJ'],
+          this.photos=json['photos'];
+    Post.fromTest({headline,content,latitude,longtitude,datatime,LFtime,LFtype,postID,itemKind,WorJ,photos})
         : this.headline=headline,
           this.content=content,
           this.latitude=latitude,
           this.longtitude=longtitude,
-          this.posttime=posttime,
-          this.LFtime=LFtime,
+          this.datatime=datatime,
           this.LFtype=LFtype,
           this.postID=postID,
           this.itemKind=itemKind,
-          this.campus=campus;
+          this.WorJ=WorJ,
+          this.photos=photos;
 }

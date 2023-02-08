@@ -26,7 +26,7 @@ class PostContainer extends StatelessWidget{
           title: Text(post.headline!),
           subtitle: Text(post.content!,overflow: TextOverflow.ellipsis,),
           isThreeLine: false,
-          trailing: Text(post.posttime.toString().substring(0,16)),
+          trailing: Text(post.datatime.toString().substring(0,16)),
 
         ),
       ),

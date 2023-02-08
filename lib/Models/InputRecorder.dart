@@ -1,3 +1,3 @@
 class InputRecorder{
-  var value='';
+  var value;
 }

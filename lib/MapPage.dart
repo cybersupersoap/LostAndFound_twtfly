@@ -22,9 +22,10 @@ class MapPage extends StatefulWidget {
   ///当mode为1时，是定位模式，该模式下不会展示任何失物，但是允许用户选择位置
   ///当mode为2是，是展示位置模式，该模式下会展示一个失物的位置
   final String mode;
+  var initLatitude;
+  var initLongitude;
 
-
-  MapPage({Key? key, required this.mode});
+  MapPage({Key? key, required this.mode,this.initLatitude,this.initLongitude});
 
   @override
   State<StatefulWidget> createState() =>_MapPageState();
@@ -101,11 +102,11 @@ class _MapPageState extends State<MapPage>{
         apiKey: Config.amapApiKeys,
         privacyStatement: Config.amapPrivacyStatement,
         onMapCreated: _onMapCreated,
-        ///设置地图初始位置，Config.nowLatLng为空时默认在天安门
-        initialCameraPosition: Config.nowLatLng==null? (Config.campus=='北洋园'? CameraPosition(target: Config.beiyangyuanLatLng, zoom: Config.nowZoom): CameraPosition(target: Config.weijinluLatLng, zoom: Config.nowZoom)):  CameraPosition(target: Config.nowLatLng, zoom: Config.nowZoom),
+        initialCameraPosition: widget.mode=='2'? CameraPosition(target: LatLng(widget.initLatitude,widget.initLongitude),zoom: Config.nowZoom) :Config.nowLatLng==null? (Config.campus=='北洋园'? CameraPosition(target: Config.beiyangyuanLatLng, zoom: Config.nowZoom): CameraPosition(target: Config.weijinluLatLng, zoom: Config.nowZoom)):  CameraPosition(target: Config.nowLatLng, zoom: Config.nowZoom),
         ///地图marker
         markers: widget.mode=='1'? Set<Marker>.of(Config.nowLocationMarker.values):
-                widget.mode=='0' ? snapshot.data!: Set<Marker>.of([]),
+                widget.mode=='0' ? snapshot.data!: 
+                widget.mode=='2'? Set<Marker>.of([Marker(position: LatLng(widget.initLatitude,widget.initLongitude))]) : Set<Marker>.of([]),
         onCameraMoveEnd: _onCameraMoveEnd,
       ),
     );
@@ -165,6 +166,16 @@ class _MapPageState extends State<MapPage>{
               child: Text('选择该位置'),
               onPressed: (){
                 Config.hasChoosePosition.value=true;
+                RouterManager.router.pop(context);
+              },
+            ),
+          ):Container(),
+
+          widget.mode=='2'? Align(
+            alignment: Alignment(0,0.9),
+            child: ElevatedButton(
+              child: Text('返回'),
+              onPressed: (){
                 RouterManager.router.pop(context);
               },
             ),
