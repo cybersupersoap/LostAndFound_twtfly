@@ -27,7 +27,7 @@ class MapMarkers{
     List<Marker> res=[];
     for(int i=0;i<posts.length;i++){
       if(posts[i].latitude==0) continue;
-      if(DateTime.tryParse(posts[i].datatime!)?.difference(nowTime).inDays==null||-DateTime.parse(posts[i].datatime!).difference(nowTime).inDays>timeDays) continue;
+      if(DateTime.tryParse(posts[i].datatime!)?.difference(nowTime).inDays==null||-DateTime.parse(posts[i].datatime!).difference(nowTime).inDays>=timeDays) continue;
       final icon = Config.imageMarkerMap[posts[i].itemKind]!=null?
             (posts[i].LFtype=='拾物'? await BitmapDescriptor.fromAssetImage(ImageConfiguration(), Config.imageMarkerMap[posts[i].itemKind]!): await BitmapDescriptor.fromAssetImage(ImageConfiguration(), Config.imageMarkerMap2[posts[i].itemKind]!)):
             await BitmapDescriptor.fromAssetImage(ImageConfiguration(), Config.imageMarkerMap['其他']!);
