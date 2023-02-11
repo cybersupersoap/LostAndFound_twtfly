@@ -22,21 +22,21 @@ class MapMarkers{
     markers.add(MapMarker(latitude,longitude,markerKind,postID));
   }
   static Future<Set<Marker>> generateMarkers(int timeDays) async{
-    Posts posts= await DioService.getPosts(1, 100);
+    List<Post> posts= await DioService.searchBySingleKey('');
     DateTime nowTime=DateTime.now();
     List<Marker> res=[];
-    for(int i=0;i<posts.posts.length;i++){
-      if(posts.posts[i].latitude==0) continue;
-      if(DateTime.tryParse(posts.posts[i].datatime!)?.difference(nowTime).inDays==null||-DateTime.parse(posts.posts[i].datatime!).difference(nowTime).inDays>timeDays) continue;
-      final icon = Config.imageMarkerMap[posts.posts[i].itemKind]!=null? 
-        await BitmapDescriptor.fromAssetImage(ImageConfiguration(), Config.imageMarkerMap[posts.posts[i].itemKind]!): 
-        await BitmapDescriptor.fromAssetImage(ImageConfiguration(), Config.imageMarkerMap['其他']!);
+    for(int i=0;i<posts.length;i++){
+      if(posts[i].latitude==0) continue;
+      if(DateTime.tryParse(posts[i].datatime!)?.difference(nowTime).inDays==null||-DateTime.parse(posts[i].datatime!).difference(nowTime).inDays>timeDays) continue;
+      final icon = Config.imageMarkerMap[posts[i].itemKind]!=null?
+            (posts[i].LFtype=='拾物'? await BitmapDescriptor.fromAssetImage(ImageConfiguration(), Config.imageMarkerMap[posts[i].itemKind]!): await BitmapDescriptor.fromAssetImage(ImageConfiguration(), Config.imageMarkerMap2[posts[i].itemKind]!)):
+            await BitmapDescriptor.fromAssetImage(ImageConfiguration(), Config.imageMarkerMap['其他']!);
       final marker=Marker(
-          position: LatLng(posts.posts[i].latitude!,posts.posts[i].longtitude!),
+          position: LatLng(posts[i].latitude!,posts[i].longtitude!),
           icon:icon,
           onTap: (_){
             BuildContext? context=navigatorKey.currentState?.overlay?.context;
-            RouterManager.router.navigateTo(context!, '/post?postid=${posts.posts[i].postID}');
+            RouterManager.router.navigateTo(context!, '/post?postid=${posts[i].postID}');
           },
       );
       res.add(marker);
