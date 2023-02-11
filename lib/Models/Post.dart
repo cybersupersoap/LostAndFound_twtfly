@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
+import '../Config.dart';
+
 class Post{
     String? headline;
     String? content;
@@ -8,22 +10,21 @@ class Post{
     double? longtitude;
     String? datatime;
     String? LFtype;
-    num? postID;
+    int? postID;
     String? itemKind;
     String? WorJ;
-    List<AssetEntity>? photos;
     Post.fromJson(Map<String,dynamic> json)
         : this.headline=json['headline'],
           this.content=json['content'],
-          this.latitude=json['latitude'],
-          this.longtitude=json['longtitude'],
-          this.datatime=json['datatime'],
-          this.LFtype=json['LFtype'],
-          this.postID=json['postID'],
-          this.itemKind=json['itemKind'],
-          this.WorJ=json['WorJ'],
-          this.photos=json['photos'];
-    Post.fromTest({headline,content,latitude,longtitude,datatime,LFtime,LFtype,postID,itemKind,WorJ,photos})
+          this.latitude=double.parse(json['latitude']),
+          this.longtitude=double.parse(json['longitude']),
+          this.datatime=json['posttime'],
+          this.LFtype=json['lftype'],
+          this.postID=json['postid'],
+          this.itemKind=json['thingtype'],
+          this.WorJ=json['worJ']{
+    }
+    Post.fromTest({headline,content,latitude,longtitude,datatime,LFtime,LFtype,postID,itemKind,WorJ})
         : this.headline=headline,
           this.content=content,
           this.latitude=latitude,
@@ -32,6 +33,15 @@ class Post{
           this.LFtype=LFtype,
           this.postID=postID,
           this.itemKind=itemKind,
-          this.WorJ=WorJ,
-          this.photos=photos;
+          this.WorJ=WorJ;
+}
+class Posts {
+    final List<Post> posts;
+
+    Posts.fromJson(List<dynamic> json)
+        :this.posts =
+            List<Post>.from(json.map((x) {
+                Config.posts.addAll(<int,Post>{x['postid']:Post.fromJson(x)});
+                return Post.fromJson(x);
+            }));
 }

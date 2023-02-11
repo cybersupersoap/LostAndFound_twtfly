@@ -1,14 +1,17 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:lost_and_found/CreateCommentPage.dart';
 import 'package:lost_and_found/MapPage.dart';
 import 'package:lost_and_found/TestFile.dart';
 
+import 'Config.dart';
 import 'MyHomePage.dart';
 import 'myinformation/pages/MyMessage.dart';
 import 'myinformation/pages/MySuccess.dart';
 import 'myinformation/pages/NickName.dart';
 import 'CreatePostPage.dart';
 import 'PostPage.dart';
+import 'CreateCommentPage.dart';
 
 class RouterManager {
   static final router = FluroRouter();
@@ -65,10 +68,17 @@ class RouterManager {
   static var postPageHandler = Handler(
     handlerFunc: (BuildContext? ct, Map<String, List<String>> params){
       var postid= params['postid']?.first;
-      return PostPage(post: TestFile.search([postid!]).first.post);
+      return PostPage(post: Config.posts[int.parse(postid!)]!);
     }
   );
 
+  ///发表回复
+  static String createCommentPage='/create_new_comment';
+  static var createCommentPageHandler = Handler(
+      handlerFunc: (BuildContext? ct, Map<String, List<String>> params){
+        var postid= params['postid']?.first;
+        return CreateCommentPage(postid: int.parse(postid!));
+      });
 
   static void DefineRoutes() {
     router.define(homePagePath, handler: homePageHandler);
@@ -78,5 +88,6 @@ class RouterManager {
     router.define(mymessagePage, handler: mymessagePageHandler);
     router.define(mysuccessPage, handler: mysuccessPageHandler);
     router.define(postPage, handler: postPageHandler);
+    router.define(createCommentPage, handler: createCommentPageHandler);
   }
 }

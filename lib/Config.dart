@@ -5,6 +5,9 @@ import 'package:amap_flutter_location/amap_location_option.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'Models/Post.dart';
+import 'Models/InputRecorder.dart';
+
 class Config{
   static bool debugMode=true;
   ///当前位置
@@ -25,18 +28,30 @@ class Config{
   ///地图mode0中是否选中位置的监听器
   static ValueNotifier<bool> hasChoosePosition=ValueNotifier(false);
 
+  static InputRecorder commentRecorder = InputRecorder();
+
   static Map<String, AssetImage> imageMap= {
     '钥匙':AssetImage('assets/key.png'),
     '卡片':AssetImage('assets/card.png'),
     '手机':AssetImage('assets/phone.png'),
-    '电脑':AssetImage('assets/computer.png')
+    '电脑':AssetImage('assets/computer.png'),
+    '其他':AssetImage('assets/more.png')
   };
 
   static Map<String, String> imageMarkerMap= {
     '钥匙':'assets/key_marker.png',
     '卡片':'assets/card_marker.png',
     '手机':'assets/phone_marker.png',
-    '电脑':'assets/computer_marker.png'
+    '电脑':'assets/computer_marker.png',
+    '其他':'assets/more_marker.png',
+  };
+
+  static Map<String, String> imageMarkerMap2= {
+    '钥匙':'assets/key_marker2.png',
+    '卡片':'assets/card_marker2.png',
+    '手机':'assets/phone_marker2.png',
+    '电脑':'assets/computer_marker2.png',
+    '其他':'assets/more_marker2.png',
   };
 
 
@@ -65,6 +80,8 @@ class Config{
   static setAmapLocationApiKey(){
     AMapFlutterLocation.setApiKey("d59a37e55dc0a42ee59e4302d92c65b9", "d59a37e55dc0a42ee59e4302d92c65b9");
   }
+
+  static Map<int,Post> posts={};
 
 
 

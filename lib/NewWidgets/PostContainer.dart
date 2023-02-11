@@ -18,15 +18,15 @@ class PostContainer extends StatelessWidget{
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               image: DecorationImage(
-                image: Config.imageMap[post.itemKind]!,
+                image: Config.imageMap[post.itemKind]!=null? Config.imageMap[post.itemKind]!:AssetImage('assets/key.png'),
                 fit: BoxFit.fill,
               ),
             ),
           ),
           title: Text(post.headline!),
-          subtitle: Text(post.content!,overflow: TextOverflow.ellipsis,),
+          subtitle: post.content=='null'? Text(''):Text(post.content!,overflow: TextOverflow.ellipsis,),
           isThreeLine: false,
-          trailing: Text(post.datatime.toString().substring(0,16)),
+          trailing: post.datatime!.length<=15? Text(post.datatime!):Text(post.datatime!.substring(0,16)),
 
         ),
       ),

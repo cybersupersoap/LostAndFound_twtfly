@@ -36,13 +36,25 @@ class _MapPageState extends State<MapPage>{
   late AMapController _mapController;
   var map;
   var locRes;
+  var markerlist;
+
+  @override
+  void initState(){
+    super.initState();
+    refreshMarker(1);
+  }
   //地图初始化
   void _onMapCreated(AMapController controller) {
     setState(() {
       _mapController = controller;
     });
   }
-
+  
+  void refreshMarker(int days)async{
+    markerlist=Future.value(await MapMarkers.generateMarkers(days));
+    setState(() {
+    });
+  }
   //改变镜头位置
    void changeCameraPosition(LatLng position) {
     _mapController.moveCamera(
@@ -91,12 +103,27 @@ class _MapPageState extends State<MapPage>{
     });
   }
 
+  void callbackfunc(String? cam){
+    if(cam=='北洋园'||cam==null){
+      changeCameraPosition(Config.beiyangyuanLatLng);
+    }
+    else changeCameraPosition(Config.weijinluLatLng);
+  }
+
+  void callbackfunc2(String? time){
+    if(time=='全部') refreshMarker(1024);
+    else if(time=='今天') refreshMarker(1);
+    else if(time=='三天内') refreshMarker(3);
+    else if(time=='一周内') refreshMarker(7);
+    else if(time=='一月内') refreshMarker(31);
+  }
+
   @override
   Widget build(BuildContext context) {
 
     ///futurebuilder使用参考于https://qa.1r1g.com/sf/ask/3938206961/
     map = FutureBuilder(
-      future: MapMarkers.generateMarkers(MapMarkers.markers),
+      future: markerlist,
       initialData: Set.of(<Marker>[]),
       builder: (context,snapshot)=>AMapWidget(
         apiKey: Config.amapApiKeys,
@@ -105,7 +132,7 @@ class _MapPageState extends State<MapPage>{
         initialCameraPosition: widget.mode=='2'? CameraPosition(target: LatLng(widget.initLatitude,widget.initLongitude),zoom: Config.nowZoom) :Config.nowLatLng==null? (Config.campus=='北洋园'? CameraPosition(target: Config.beiyangyuanLatLng, zoom: Config.nowZoom): CameraPosition(target: Config.weijinluLatLng, zoom: Config.nowZoom)):  CameraPosition(target: Config.nowLatLng, zoom: Config.nowZoom),
         ///地图marker
         markers: widget.mode=='1'? Set<Marker>.of(Config.nowLocationMarker.values):
-                widget.mode=='0' ? snapshot.data!: 
+                (widget.mode=='0'&&snapshot.data!=null) ? snapshot.data!:
                 widget.mode=='2'? Set<Marker>.of([Marker(position: LatLng(widget.initLatitude,widget.initLongitude))]) : Set<Marker>.of([]),
         onCameraMoveEnd: _onCameraMoveEnd,
       ),
@@ -135,7 +162,23 @@ class _MapPageState extends State<MapPage>{
                 '北洋园',
                 '卫津路',
               ],
-              func: 'changeCampus',
+              callbackfunc: callbackfunc,
+              mapPage: this,
+            ),
+          ):Container(),
+
+          widget.mode=='0'? Positioned(
+            top:80,
+            left: 20,
+            child: DropDownMenu(
+              choices: [
+                '今天',
+                '三天内',
+                '一周内',
+                '一月内',
+                '全部'
+              ],
+              callbackfunc: callbackfunc2,
               mapPage: this,
             ),
           ):Container(),

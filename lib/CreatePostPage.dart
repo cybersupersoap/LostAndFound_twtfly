@@ -10,6 +10,7 @@ import 'Models/MapMarker.dart';
 import 'Config.dart';
 
 import 'TestFile.dart';
+import 'dio_service.dart';
 
 class CreatePostPage extends StatefulWidget {
   @override
@@ -38,7 +39,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
 
         leading: IconButton(
           icon: Icon(
-            Icons.backspace,
+            Icons.arrow_back,
             color: Colors.blueGrey,
           ),
           onPressed: (){
@@ -293,6 +294,19 @@ class _CreatePostPageState extends State<CreatePostPage> {
                           chosenOne='电脑';
                         });
                       },
+                    ),
+                    Padding(padding: EdgeInsetsDirectional.only(end: 15)),
+                    GestureDetector(
+                      child: ItemKind(
+                        imagePath: 'assets/more.png',
+                        name: '其他',
+                        isChosen: chosenOne,
+                      ),
+                      onTap: (){
+                        setState(() {
+                          chosenOne='其他';
+                        });
+                      },
                     )
 
                   ],
@@ -410,19 +424,21 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 ///提交按钮
                 Container(
                   child: ElevatedButton(
-                      onPressed: (){
-                        Post post=Post.fromTest(
+                      onPressed: ()async{
+                        String b=await DioService.addPost(
                           itemKind: chosenOne,
                           headline: postDescription,
                           content: postContentRecorder.value!=null? postContentRecorder.value:'null',
                           datatime: DateTime.now().toString(),
                           LFtype: isLost==true? '失物':'拾物',
-                          latitude: Config.hasChoosePosition.value? Config.nowLatitude:0.0,
-                          longtitude: Config.hasChoosePosition.value? Config.nowLongitude:0.0,
+                          latitude: Config.hasChoosePosition.value? Config.nowLatitude.toString():'0',
+                          longtitude: Config.hasChoosePosition.value? Config.nowLongitude.toString():'0',
                           WorJ: isBeiyangyuan==true? '北洋园':'卫津路',
-                          photos: photos,
                         );
-                        TestFile.add(post);
+                        for(int i=0;i<photos.length;i++){
+                          String a= await DioService.addPhotos(photos[i]);
+                          print(a);
+                        }
                         RouterManager.router.pop(context);
                       },
                       child: Text('提交')),
