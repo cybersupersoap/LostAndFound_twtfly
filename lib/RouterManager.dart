@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_and_found/CreateCommentPage.dart';
 import 'package:lost_and_found/MapPage.dart';
+import 'package:lost_and_found/myinformation/pages/PostRecord.dart';
 
 import 'Config.dart';
 import 'CreatePostPage.dart';
@@ -45,6 +46,7 @@ class RouterManager {
     return NickNamePage();
   });
 
+  ///我的消息
   static String mymessagePage = '/my_message';
   static var mymessagePageHandler = Handler(
       handlerFunc: (BuildContext? ct, Map<String, List<String>> params) {
@@ -58,10 +60,18 @@ class RouterManager {
     return CreatePostPage();
   });
 
+  ///我的成就
   static String mysuccessPage = '/my_success';
   static var mysuccessPageHandler = Handler(
       handlerFunc: (BuildContext? ct, Map<String, List<String>> params) {
     return MySimpleSuccessPage();
+  });
+
+  ///发帖记录
+  static String postrecordPage = '/post_record';
+  static var postrecordPageHandler = Handler(
+      handlerFunc: (BuildContext? ct, Map<String, List<String>> params) {
+    return PostRecordPage();
   });
 
   ///帖子详情
@@ -87,6 +97,7 @@ class RouterManager {
     router.define(createPostPagePath, handler: createPostPageHandler);
     router.define(mymessagePage, handler: mymessagePageHandler);
     router.define(mysuccessPage, handler: mysuccessPageHandler);
+    router.define(postrecordPage, handler: postrecordPageHandler);
     router.define(postPage, handler: postPageHandler);
     router.define(createCommentPage, handler: createCommentPageHandler);
   }
