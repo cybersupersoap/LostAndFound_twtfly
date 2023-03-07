@@ -97,3 +97,28 @@ class _MySuccessPageState extends State<MySuccessPage> {
     ));
   }
 }
+
+class MySimpleSuccessPage extends StatelessWidget {
+  const MySimpleSuccessPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+          decoration: BoxDecoration(
+              image: new DecorationImage(
+                  image: AssetImage('assets/background.png'),
+                  fit: BoxFit.cover)),
+          child: Center(
+            child: Text(
+              '敬请期待',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40),
+              textAlign: TextAlign.center,
+            ),
+          )),
+    );
+  }
+}
