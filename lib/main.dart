@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'MyHomePage.dart';
 import 'RouterManager.dart';
+import 'Cache.dart';
 
 void main() {
   RouterManager.DefineRoutes();

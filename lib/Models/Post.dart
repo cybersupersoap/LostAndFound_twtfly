@@ -13,6 +13,7 @@ class Post{
     int? postID;
     String? itemKind;
     String? WorJ;
+    int? userid;
     Post.fromJson(Map<String,dynamic> json)
         : this.headline=json['headline'],
           this.content=json['content'],
@@ -22,7 +23,8 @@ class Post{
           this.LFtype=json['lftype'],
           this.postID=json['postid'],
           this.itemKind=json['thingtype'],
-          this.WorJ=json['worJ']{
+          this.WorJ=json['worJ'],
+          this.userid=json['userid']{
     }
     Post.fromTest({headline,content,latitude,longtitude,datatime,LFtime,LFtype,postID,itemKind,WorJ})
         : this.headline=headline,

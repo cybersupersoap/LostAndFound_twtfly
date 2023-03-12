@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_and_found/CreateCommentPage.dart';
+import 'package:lost_and_found/Login.dart';
 import 'package:lost_and_found/MapPage.dart';
 import 'package:lost_and_found/TestFile.dart';
 
@@ -80,6 +81,22 @@ class RouterManager {
         return CreateCommentPage(postid: int.parse(postid!));
       });
 
+  ///登录
+  static String loginPage='/login';
+  static var loginPageHandler = Handler(
+      handlerFunc:(BuildContext? ct, Map<String,List<String>> params){
+        return LoginPage();
+      }
+  );
+
+  ///注册
+  static String registerPage='/register';
+  static var registerPageHandler = Handler(
+      handlerFunc: (BuildContext? ct, Map<String,List<String>> params){
+        return RegisterPage();
+      }
+  );
+
   static void DefineRoutes() {
     router.define(homePagePath, handler: homePageHandler);
     router.define(mapPagePath, handler: mapPageHandler);
@@ -89,5 +106,7 @@ class RouterManager {
     router.define(mysuccessPage, handler: mysuccessPageHandler);
     router.define(postPage, handler: postPageHandler);
     router.define(createCommentPage, handler: createCommentPageHandler);
+    router.define(loginPage, handler: loginPageHandler);
+    router.define(registerPage, handler: registerPageHandler);
   }
 }

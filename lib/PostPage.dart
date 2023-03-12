@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'Config.dart';
 import 'RouterManager.dart';
 import 'dio_service.dart';
 import 'Models/Post.dart';
@@ -14,13 +15,33 @@ class PostPage extends StatefulWidget {
 class _PostPageState extends State<PostPage> {
   var url;
   var comments;
+  var lzUsername;
+  var lzIcon;
+  List<String> commentUsername=[];
+  List<int> commentIcon=[];
 
   Future<void> onRefresh() async {
     url=await DioService.getPhotos(widget.post.postID!);
-    print(url);
+    if(widget.post.userid!=null){
+      lzUsername=Future.value(await DioService.getUsername(widget.post.userid!));
+      lzIcon=Future.value(await DioService.geticon(widget.post.userid!));
+    }
+    else {
+      lzUsername='获取用户名失败';
+      lzIcon=AssetImage('assets/more.png');
+    }
     comments=await DioService.getComments(widget.post.postID!);
+    for(int i=0;i<comments.length;i++){
+      if(comments[i].userid!=null){
+        String a=await DioService.getUsername(comments[i].userid!);
+        int b=await DioService.geticon(comments[i].userid!);
+        commentUsername.add(a);commentIcon.add(b);
+      }
+      else {
+        commentUsername.add('获取用户名失败');commentIcon.add(1);
+      }
+    }
     setState(()  {
-      print(url);
     });
   }
 
@@ -29,6 +50,7 @@ class _PostPageState extends State<PostPage> {
     super.initState();
     onRefresh();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,14 +91,36 @@ class _PostPageState extends State<PostPage> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Container(
-                                        child: Icon(Icons.person,size: 40,),
+                                        width: 55,
+                                        height: 55,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(150)
+                                        ),
+                                        child: FutureBuilder(
+                                          future: lzIcon,
+                                          builder: (context, snapshot) {
+                                            if(snapshot.connectionState==ConnectionState.done)
+                                            return Image(
+                                              image: Config.imageMap2[snapshot.data]!,
+                                              fit: BoxFit.fitWidth
+                                            );
+                                            else return Container();
+                                          }
+                                        ),
                                         padding: EdgeInsets.all(10),
                                       ),
                                       Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Padding(padding: EdgeInsetsDirectional.only(top: 10)),
-                                          Text('testuser'),
+                                          FutureBuilder(
+                                            future: lzUsername,
+                                            builder: (context, snapshot) {
+                                              if(snapshot.connectionState==ConnectionState.done)
+                                              return Text(snapshot.data.toString());
+                                              else return Text('加载中');
+                                            }
+                                          ),
                                           widget.post.datatime!.length<19? Text(widget.post.datatime!): Text(widget.post.datatime!.substring(0,19)),
                                         ],
                                       )
@@ -131,10 +175,22 @@ class _PostPageState extends State<PostPage> {
                       ):Container(),
 
                       if(url!=null)Column(
-                        children: url.map((photo)=>Container(
+                        children: url.map<Container>((photo)=>Container(
                             padding: EdgeInsetsDirectional.all(10),
-                            child: Image(
-                              image: NetworkImage('http://101.34.160.18:8080/savepho/$photo}'),
+                            child: Image.network(
+                              "http://101.34.160.18:8080/savepho/${photo}",
+                              loadingBuilder: (context,child,loadingProgress){
+                                if(loadingProgress==null) return child;
+                                return Container(
+                                  alignment: Alignment.center,
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress!=null ? loadingProgress.expectedTotalBytes != null
+                                        ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                        : null :null,
+                                  ),
+                                );
+                              },
                               fit: BoxFit.fitWidth,
                             )
                         )
@@ -151,9 +207,9 @@ class _PostPageState extends State<PostPage> {
                       if(comments!=null)
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: comments.map<CommentContainer>(
-                            (comment){
-                              return CommentContainer(comment: comment);
+                        children: comments.asMap().keys.map<CommentContainer>(
+                            (i){
+                              return CommentContainer(comment: comments[i],username:commentUsername[i],icon:commentIcon[i]);
                             }
                         ).toList(),
                       ),
@@ -171,7 +227,9 @@ class _PostPageState extends State<PostPage> {
               right: 5,
               child: ElevatedButton(
                 onPressed: (){
-                  RouterManager.router.navigateTo(context, '/create_new_comment?postid=${widget.post.postID}');
+                  if(Config.token==null||Config.token.length<32)
+                  RouterManager.router.navigateTo(context, 'login');
+                  else RouterManager.router.navigateTo(context, '/create_new_comment?postid=${widget.post.postID}');
                   },
                 child:Icon(
                   Icons.add
@@ -191,7 +249,9 @@ class _PostPageState extends State<PostPage> {
 
 class CommentContainer extends StatelessWidget {
   Comment comment;
-  CommentContainer({Key? key,required this.comment}) : super(key:key);
+  String username;
+  int icon;
+  CommentContainer({Key? key,required this.comment,required this.username,required this.icon}) : super(key:key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -202,14 +262,22 @@ class CommentContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                child: Icon(Icons.person,size: 40,),
+                width: 55,
+                height: 55,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(150)
+                ),
+                child: Image(
+                  image: Config.imageMap2[icon]!,
+                  fit: BoxFit.fitWidth,
+                ),
                 padding: EdgeInsets.all(10),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(padding: EdgeInsetsDirectional.only(top: 10)),
-                  Text('testuser'),
+                  Text(username),
                   comment.date.length<19? Text(comment.date): Text(comment.date.substring(0,19)),
                 ],
               )

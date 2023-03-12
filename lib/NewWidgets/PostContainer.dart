@@ -26,7 +26,14 @@ class PostContainer extends StatelessWidget{
           title: Text(post.headline!),
           subtitle: post.content=='null'? Text(''):Text(post.content!,overflow: TextOverflow.ellipsis,),
           isThreeLine: false,
-          trailing: post.datatime!.length<=15? Text(post.datatime!):Text(post.datatime!.substring(0,16)),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Text(post.datatime!.substring(0,16),style: TextStyle(fontSize: 15),),
+              Text(post.WorJ!,style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+            ],
+          ),
 
         ),
       ),

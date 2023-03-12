@@ -1,7 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:lost_and_found/RouterManager.dart';
+import 'package:lost_and_found/dio_service.dart';
 
-class MyInformationPage extends StatelessWidget {
+import 'Config.dart';
+import 'Cache.dart';
+
+class MyInformationPage extends StatefulWidget {
   const MyInformationPage({Key? key}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return _MyInformationPage();
+  }
+}
+class _MyInformationPage extends State<MyInformationPage> {
+  var username;
+  @override
+  void initState(){
+
+  }
+
+  // void onInit()async{
+  //   if(Config.token=='none'||Config.token.length<32){
+  //     RouterManager.router.navigateTo(context, 'login');
+  //   }else{
+  //     username=Future.value(await DioService.get)
+  //   }
+  //
+  // }
+
+
   @override
   Widget build(BuildContext context) {
     ///根据手机屏幕调节高度
@@ -29,10 +56,10 @@ class MyInformationPage extends StatelessWidget {
                     width: 100,
                     height: 100,
                     margin: EdgeInsets.all(20),
-                    child: Image(
-                      image: NetworkImage(
-                          'https://img9.51tietu.net/pic/20190918/p0iwg2kzx13p0iwg2kzx13.jpg'),
-                      fit: BoxFit.cover,
+                    child: FutureBuilder(
+                      builder:(context,snapshot) {
+                        return Container();
+                      }
                     ),
                   ),
 
@@ -147,7 +174,40 @@ class MyInformationPage extends StatelessWidget {
                               fontWeight: FontWeight.w500),
                         ),
                       ],
-                    )))
+                    ))),
+            Container(
+              child: ValueListenableBuilder(
+                valueListenable: Config.tokenListener,
+                builder: (context,value,child){
+                  return ElevatedButton(
+                    child: Config.token!='none'&&Config.token.length==32? Text('注销'):Text('登录'),
+                    onPressed: ()async{
+                      if(Config.token!='none'&&Config.token.length==32){
+                        Config.token='none';
+                        Config.tokenListener.value='none';
+                        Store store=await Store.getInstance();
+                        await store.remove('token');
+                      }else{
+                        RouterManager.router.navigateTo(context, 'login');
+                      }
+                    },
+                  );
+                },
+                child: ElevatedButton(
+                  child: Config.token!='none'&&Config.token.length==32? Text('注销'):Text('登录'),
+                  onPressed: ()async{
+                    if(Config.token!='none'&&Config.token.length==32){
+                      Config.token='none';
+                      Config.tokenListener.value='none';
+                      Store store=await Store.getInstance();
+                      await store.remove('token');
+                    }else{
+                      RouterManager.router.navigateTo(context, 'login');
+                    }
+                  },
+                ),
+              ),
+            )
           ],
         ));
   }

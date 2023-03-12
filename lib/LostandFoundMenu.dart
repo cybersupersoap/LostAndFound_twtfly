@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lost_and_found/NewWidgets/PostContainer.dart';
 import 'package:lost_and_found/dio_service.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'Cache.dart';
+import 'Config.dart';
 import 'Models/Post.dart';
 import 'NewWidgets/DropDownMenu.dart';
 import 'RouterManager.dart';
@@ -49,6 +51,7 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
     _tabController.dispose();
     super.dispose();
   }
+
 
   Future<void> onRefresh() async {
     var resPosts = await DioService.searchBySingleKey(keyWord);
@@ -126,7 +129,11 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
                                   else return Container(
                                     child: RefreshIndicator(
                                       onRefresh: onRefresh,
-                                      child: snapshot.data!.isEmpty? Container(child: Center(child: Text('暂无'),),):
+                                      child: snapshot.data!.isEmpty? ListView(
+                                        children: [
+                                          Container(child: Center(child: Text('暂无'),),),
+                                        ],
+                                      ):
                                       ListView.separated(
                                         key: UniqueKey(),
                                         itemBuilder: (BuildContext context, int index) {
@@ -154,7 +161,11 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
                                   else return Container(
                                     child: RefreshIndicator(
                                       onRefresh: onRefresh,
-                                      child: snapshot.data!.isEmpty? Container(child: Center(child: Text('暂无'),),):
+                                      child: snapshot.data!.isEmpty? ListView(
+                                        children: [
+                                          Container(child: Center(child: Text('暂无'),),),
+                                        ],
+                                      ):
                                       ListView.separated(
                                         key: UniqueKey(),
                                         itemBuilder: (BuildContext context, int index) {
@@ -183,12 +194,14 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
                       bottom: 20,
                       right: 20,
                       child: ElevatedButton(
-                        onPressed: (){RouterManager.router.navigateTo(context, '/create_new_post');},
-                        child:Text(
-                          '发帖',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
+                        onPressed: (){
+                          if(Config.token==null||Config.token.length<32)
+                            RouterManager.router.navigateTo(context, 'login');
+                            else RouterManager.router.navigateTo(context, '/create_new_post');
+
+                          },
+                        child:Icon(
+                          Icons.add
                         ),
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(CircleBorder()),

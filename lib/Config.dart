@@ -28,6 +28,8 @@ class Config{
   ///地图mode0中是否选中位置的监听器
   static ValueNotifier<bool> hasChoosePosition=ValueNotifier(false);
 
+  static ValueNotifier<String> tokenListener=ValueNotifier('');
+
   static InputRecorder commentRecorder = InputRecorder();
 
   static Map<String, AssetImage> imageMap= {
@@ -36,6 +38,14 @@ class Config{
     '手机':AssetImage('assets/phone.png'),
     '电脑':AssetImage('assets/computer.png'),
     '其他':AssetImage('assets/more.png')
+  };
+
+  static Map<int, AssetImage> imageMap2= {
+    1:AssetImage('assets/key.png'),
+    2:AssetImage('assets/card.png'),
+    3:AssetImage('assets/phone.png'),
+    4:AssetImage('assets/computer.png'),
+    5:AssetImage('assets/more.png')
   };
 
   static Map<String, String> imageMarkerMap= {
@@ -82,6 +92,8 @@ class Config{
   }
 
   static Map<int,Post> posts={};
+
+  static String token='none';
 
 
 

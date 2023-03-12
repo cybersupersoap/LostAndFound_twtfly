@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lost_and_found/Cache.dart';
 import 'package:lost_and_found/MyInformation.dart';
+import 'package:lost_and_found/RouterManager.dart';
 
 import 'LostandFoundMenu.dart';
 import 'MapPage.dart';
+import 'Config.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -38,7 +41,19 @@ class _MyHomePageState extends State<MyHomePage>
   @override
   void initState() {
     super.initState();
+    getToken();
     currentPage = _tabs[currentIndex];
+  }
+
+  void getToken()async{
+    Store store = await Store.getInstance();
+    var token=await store.getString('token');
+
+    if(token==null||token.length!=32||token=='none'){
+      RouterManager.router.navigateTo(context, 'login');
+    }else{
+      Config.token=token;
+    }
   }
 
   @override
