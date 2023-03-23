@@ -105,9 +105,13 @@ class _MapPageState extends State<MapPage>{
 
   void callbackfunc(String? cam){
     if(cam=='北洋园'||cam==null){
+      Config.campus=='北洋园';
       changeCameraPosition(Config.beiyangyuanLatLng);
     }
-    else changeCameraPosition(Config.weijinluLatLng);
+    else {
+      Config.campus=='卫津路';
+      changeCameraPosition(Config.weijinluLatLng);
+    }
   }
 
   void callbackfunc2(String? time){

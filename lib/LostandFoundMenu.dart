@@ -58,8 +58,9 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
     List<PostContainer> temLostPosts=[];
     List<PostContainer> temFoundPosts=[];
     for(int i=resPosts.length-1;i>=0;i--){
-      if(resPosts[i].LFtype=='失物'&&(item==resPosts[i].itemKind||item=='全部')) temLostPosts.add(PostContainer(post: resPosts[i]));
-      else if(resPosts[i].LFtype=='拾物'&&(item==resPosts[i].itemKind||item=='全部')) temFoundPosts.add(PostContainer(post: resPosts[i]));
+      //print(resPosts[i].userid);
+      if(resPosts[i].LFtype=='失物'&&(item==resPosts[i].itemKind||item=='全部')&&resPosts[i].WorJ==Config.campus) temLostPosts.add(PostContainer(post: resPosts[i]));
+      else if(resPosts[i].LFtype=='拾物'&&(item==resPosts[i].itemKind||item=='全部')&&resPosts[i].WorJ==Config.campus) temFoundPosts.add(PostContainer(post: resPosts[i]));
     }
     setState(() {
       foundPosts = Future.value(temFoundPosts);
@@ -209,6 +210,25 @@ class _LostandFoundMenuState extends State<LostandFoundMenu> with SingleTickerPr
                         ),
                       ),
                     ),
+
+                    Positioned(
+                      bottom: 110,
+                      right: 20,
+                      child: ElevatedButton(
+                        onPressed: (){
+                          if(Config.campus=='北洋园'){
+                            Config.campus='卫津路';
+                          }else Config.campus='北洋园';
+                          onRefresh();
+                        },
+                        child:Config.campus=='北洋园'? Text('北洋园'):Text('卫津路'),
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(CircleBorder()),
+                          minimumSize: MaterialStateProperty.all(Size(80, 80)),//设置按钮大小
+                        ),
+                      ),
+                    ),
+
 
                     ///这是刷新按钮
                     // Positioned(

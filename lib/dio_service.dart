@@ -100,4 +100,18 @@ class DioService{
     return response.data;
   }
 
+  static Future<int> getUserid(String token) async{
+    var response= await Dio().get('http://101.34.160.18:8080/Guserid?token=$token');
+    return response.data;
+  }
+
+  static Future<String> changeUsername(String token,String cname) async{
+    var response=await Dio().post('http://101.34.160.18:8080/changeusername',data:FormData.fromMap({'token':token,'username':cname}));
+    return response.data;
+  }
+  static Future<String> changeIcon(String token,int icon) async{
+    var response=await Dio().post('http://101.34.160.18:8080/changeicon',data:FormData.fromMap({'token':token,'i':icon}));
+    return response.data;
+  }
+
 }

@@ -31,11 +31,14 @@ class _PostPageState extends State<PostPage> {
       lzIcon=AssetImage('assets/more.png');
     }
     comments=await DioService.getComments(widget.post.postID!);
+    commentUsername=[];
+    commentIcon=[];
     for(int i=0;i<comments.length;i++){
       if(comments[i].userid!=null){
         String a=await DioService.getUsername(comments[i].userid!);
         int b=await DioService.geticon(comments[i].userid!);
         commentUsername.add(a);commentIcon.add(b);
+        print(commentUsername);
       }
       else {
         commentUsername.add('获取用户名失败');commentIcon.add(1);
@@ -101,7 +104,7 @@ class _PostPageState extends State<PostPage> {
                                           builder: (context, snapshot) {
                                             if(snapshot.connectionState==ConnectionState.done)
                                             return Image(
-                                              image: Config.imageMap2[snapshot.data]!,
+                                              image: AssetImage(Config.userIcons[snapshot.data]!),
                                               fit: BoxFit.fitWidth
                                             );
                                             else return Container();
@@ -268,7 +271,7 @@ class CommentContainer extends StatelessWidget {
                     borderRadius: BorderRadius.circular(150)
                 ),
                 child: Image(
-                  image: Config.imageMap2[icon]!,
+                  image: AssetImage(Config.userIcons[icon]!),
                   fit: BoxFit.fitWidth,
                 ),
                 padding: EdgeInsets.all(10),

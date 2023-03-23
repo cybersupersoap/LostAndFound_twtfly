@@ -9,6 +9,7 @@ import 'Config.dart';
 import 'CreatePostPage.dart';
 import 'MyHomePage.dart';
 import 'PostPage.dart';
+import 'myinformation/pages/ChangeIcon.dart';
 import 'myinformation/pages/MyMessage.dart';
 import 'myinformation/pages/MySuccess.dart';
 import 'myinformation/pages/NickName.dart';
@@ -107,6 +108,14 @@ class RouterManager {
       }
   );
 
+  ///修改头像
+  static String changeIconPage='/changeIcon';
+  static var changeIconPageHandler = Handler(
+      handlerFunc: (BuildContext? ct,Map<String,List<String>>params){
+        return ChangeIcon();
+      }
+  );
+
   static void DefineRoutes() {
     router.define(homePagePath, handler: homePageHandler);
     router.define(mapPagePath, handler: mapPageHandler);
@@ -119,5 +128,6 @@ class RouterManager {
     router.define(createCommentPage, handler: createCommentPageHandler);
     router.define(loginPage, handler: loginPageHandler);
     router.define(registerPage, handler: registerPageHandler);
+    router.define(changeIconPage, handler: changeIconPageHandler);
   }
 }

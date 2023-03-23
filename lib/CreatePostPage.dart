@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lost_and_found/NewWidgets/Dialog.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
@@ -425,7 +426,19 @@ class _CreatePostPageState extends State<CreatePostPage> {
                 Container(
                   child: ElevatedButton(
                       onPressed: ()async{
-                        String b=await DioService.addPost(
+                        ShowDialog(context);
+                        try{
+                          for(int i=0;i<photos.length;i++){
+                            String a= await DioService.addPhotos(photos[i]);
+                            //print(a);
+                          }
+                        }catch(e){
+                          RouterManager.router.pop(context);
+                          MyDialog.showCupertinoAlertDialog(context, '上传图片失败，错误原因：$e');
+                          return;
+                        }
+
+                        await DioService.addPost(
                           itemKind: chosenOne,
                           headline: postDescription,
                           content: postContentRecorder.value!=null? postContentRecorder.value:'null',
@@ -434,11 +447,18 @@ class _CreatePostPageState extends State<CreatePostPage> {
                           latitude: Config.hasChoosePosition.value? Config.nowLatitude.toString():'0',
                           longtitude: Config.hasChoosePosition.value? Config.nowLongitude.toString():'0',
                           WorJ: isBeiyangyuan==true? '北洋园':'卫津路',
-                        );
-                        for(int i=0;i<photos.length;i++){
-                          String a= await DioService.addPhotos(photos[i]);
-                          print(a);
-                        }
+                        ).then((value){
+                          RouterManager.router.pop(context);
+                          if(value=="ok"){
+                            print(value);
+                            RouterManager.router.pop(context);
+                            MyDialog.showCupertinoAlertDialog(context, "发帖成功！");
+                          }
+                          return value;
+                        },onError: (e){
+                          RouterManager.router.pop(context);
+                          MyDialog.showCupertinoAlertDialog(context, '发帖失败，错误原因：$e');
+                        });
                         RouterManager.router.pop(context);
                       },
                       child: Text('提交')),
@@ -517,4 +537,18 @@ class _photoContainer extends StatelessWidget {
       ),
     );
   }
+}
+
+void ShowDialog(context) {
+  showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('上传中'),
+      content: Center(
+        heightFactor: 0.4,
+        child: CircularProgressIndicator(),
+      ),
+    ),
+  );
 }

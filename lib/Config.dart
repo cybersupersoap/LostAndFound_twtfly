@@ -95,6 +95,16 @@ class Config{
 
   static String token='none';
 
+  static Map<int,String> userIcons= {
+    1: 'assets/outsider.png',
+    2: 'assets/card.png',
+    3:'assets/bird.png',
+    4:'assets/apex.png',
+    5:'assets/phantom.png',
+    6:'assets/rider.png',
+    7:'assets/flutter.png',
+  };
 
+  static int chosenIcon=1;
 
 }
