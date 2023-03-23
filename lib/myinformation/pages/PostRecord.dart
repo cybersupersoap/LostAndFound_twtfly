@@ -63,6 +63,18 @@ class _PostRecordPageState extends State<PostRecordPage>
             ],
           ),
         ),
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            Center(
+              child: Text('暂无内容'),
+            ),
+            Center(child: Text('暂无内容')),
+            Center(
+              child: Text('暂无内容'),
+            ),
+          ],
+        ),
       ),
     );
   }

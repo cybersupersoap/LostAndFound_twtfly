@@ -21,9 +21,7 @@ class _MyMessagePageState extends State<MyMessagePage>
   void initState() {
     super.initState();
     _tabController = new TabController(length: 3, vsync: this);
-    _tabController.addListener(() {
-      ///toast消息提示框等会再写
-    });
+    _tabController.addListener(() {});
   }
 
   @override
@@ -93,7 +91,6 @@ class _MyMessagePageState extends State<MyMessagePage>
                               SizedBox(
                                 width: 250,
                               ),
-                              Text('两分钟前')
                             ],
                           )
                         ]),
